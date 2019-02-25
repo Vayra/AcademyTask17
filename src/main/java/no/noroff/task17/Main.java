@@ -38,21 +38,14 @@ public class Main {
         email.put("Personal", "helene.harmens@gmail.com");
         email.put("Work", "helene.hunding.harmens@no.experis.com");
         addPerson("Helene", "Harmens", phone, email, "Bjerregaardsgate 24B, 0172 Oslo", new SimpleDateFormat("08/16/1991"));
-
-        /*
+      
+        addSetup();
         for (int id: ids){
             printPerson(id);
         }
-        */
-
-        phone.put("Home", "13494524");
-        phoneTable.update(1, phone);
-
-        //printPerson(1);
 
         String searchWord = "9305";
         search(searchWord);
-
 
     }
     public static void printName(int key){
@@ -91,6 +84,80 @@ public class Main {
         return true;
     }
 
+
+    public static void addSetup() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter first name: ");
+        String firstName = input.nextLine();
+
+        System.out.println("Please enter last name: ");
+        String lastName = input.nextLine();
+
+        Hashtable<String, String> phone = new Hashtable<>();
+        System.out.println("Would you like to add a number for work-phone? yes/no");
+        while(true) {
+            String nextInput = input.nextLine();
+            if(nextInput.equals("yes")){
+                System.out.println("Please enter number: ");
+                phone.put("Work", input.nextLine());
+                break;
+            } else if(nextInput.equals("no")) {
+                break;
+            } else {
+                System.out.println("Invalid answer");
+            }
+        }
+
+        System.out.println("Would you like to add a number for home-phone? yes/no");
+        while(true) {
+            String nextInput = input.nextLine();
+            if(nextInput.equals("yes")){
+                System.out.println("Please enter number: ");
+                phone.put("Personal", input.nextLine());
+                break;
+            } else if(nextInput.equals("no")) {
+                break;
+            } else {
+                System.out.println("Invalid answer");
+            }
+        }
+
+        Hashtable<String, String> email = new Hashtable<>();
+        System.out.println("Would you like to add a work-email? yes/no");
+        while(true) {
+            String nextInput = input.nextLine();
+            if(nextInput.equals("yes")){
+                System.out.println("Please enter email: ");
+                email.put("Work", input.nextLine());
+                break;
+            } else if(nextInput.equals("no")) {
+                break;
+            } else {
+                System.out.println("Invalid answer");
+            }
+        }
+
+        System.out.println("Would you like to add a home-email? yes/no");
+        while(true) {
+            String nextInput = input.nextLine();
+            if(nextInput.equals("yes")){
+                System.out.println("Please enter email: ");
+                email.put("Personal", input.nextLine());
+                break;
+            } else if(nextInput.equals("no")) {
+                break;
+            } else {
+                System.out.println("Invalid answer");
+            }
+        }
+
+        System.out.println("Please enter address: ");
+        String address = input.nextLine();
+
+        System.out.println("Please enter birthdate mm/dd/yyyy");
+        String date = input.nextLine();
+
+        addPerson(firstName, lastName, phone, email, address, new SimpleDateFormat(date));
 
     public static void search(String searchWord){
 
