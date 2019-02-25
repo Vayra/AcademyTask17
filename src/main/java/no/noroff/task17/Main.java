@@ -1,12 +1,10 @@
 package no.noroff.task17;
 
 import javafx.scene.control.Tab;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     private static Table<Integer, String> firstNameTable;
@@ -41,14 +39,19 @@ public class Main {
         email.put("Work", "helene.hunding.harmens@no.experis.com");
         addPerson("Helene", "Harmens", phone, email, "Bjerregaardsgate 24B, 0172 Oslo", new SimpleDateFormat("08/16/1991"));
 
-
+        /*
         for (int id: ids){
             printPerson(id);
         }
+        */
+
         phone.put("Home", "13494524");
         phoneTable.update(1, phone);
 
-        printPerson(1);
+        //printPerson(1);
+
+        String searchWord = "9305";
+        search(searchWord);
 
 
     }
@@ -57,6 +60,7 @@ public class Main {
     }
 
     public static void printPerson(int key) {
+
         System.out.println("Printing personal info: ");
         System.out.println("Name: " + firstNameTable.get(key) + " " + lastNameTable.get(key));
         System.out.println("Phone: ");
@@ -67,6 +71,9 @@ public class Main {
         for (Map.Entry<String, String> p:emailTable.get(key).entrySet())
             System.out.println("\t" +p.getKey() + ":\t" + p.getValue());
         System.out.println("Address: " + addressTable.get(key));
+
+        //System.out.println("firstnametable: "+firstNameTable.get(key));
+
     }
 
     public static boolean addPerson(String firstName, String lastName, Map<String, String> phone,
@@ -82,5 +89,31 @@ public class Main {
         dateOfBirthTable.add(newID, dob);
 
         return true;
+    }
+
+
+    public static void search(String searchWord){
+
+        boolean found = false;
+
+        System.out.println("You searched for: " + searchWord);
+
+        for (int id: ids){
+
+            if (firstNameTable.get(id).toUpperCase()
+                    .contains(searchWord.toUpperCase()) ||
+                (lastNameTable.get(id).toUpperCase()
+                        .contains(searchWord.toUpperCase())) ||
+                (Arrays.toString(phoneTable.get(id).entrySet().toArray()).toUpperCase()
+                        .contains(searchWord.toUpperCase()))) {
+
+                System.out.println("Search worked!\n");
+                printPerson(id);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Did not find what you were searching for.");
+        }
     }
 }
