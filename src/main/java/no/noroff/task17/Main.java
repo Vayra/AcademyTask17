@@ -1,7 +1,5 @@
 package no.noroff.task17;
 
-import javafx.scene.control.Tab;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -57,12 +55,16 @@ public class Main {
         System.out.println("Printing personal info: ");
         System.out.println("Name: " + firstNameTable.get(key) + " " + lastNameTable.get(key));
         System.out.println("Phone: ");
+
         for (Map.Entry<String, String> p:phoneTable.get(key).entrySet())
             System.out.println("\t" + p.getKey() + ":\t" + p.getValue());
+
         System.out.println("Date of birth: " + dateOfBirthTable.get(key).toLocalizedPattern());
         System.out.println("Email: ");
+
         for (Map.Entry<String, String> p:emailTable.get(key).entrySet())
             System.out.println("\t" +p.getKey() + ":\t" + p.getValue());
+
         System.out.println("Address: " + addressTable.get(key));
 
         //System.out.println("firstnametable: "+firstNameTable.get(key));
@@ -95,13 +97,13 @@ public class Main {
 
         Hashtable<String, String> phone = new Hashtable<>();
         System.out.println("Would you like to add a number for work-phone? yes/no");
-        while(true) {
+        while (true) {
             String nextInput = input.nextLine();
-            if(nextInput.equals("yes")){
+            if (nextInput.equals("yes")) {
                 System.out.println("Please enter number: ");
                 phone.put("Work", input.nextLine());
                 break;
-            } else if(nextInput.equals("no")) {
+            } else if (nextInput.equals("no")) {
                 break;
             } else {
                 System.out.println("Invalid answer");
@@ -109,13 +111,13 @@ public class Main {
         }
 
         System.out.println("Would you like to add a number for home-phone? yes/no");
-        while(true) {
+        while (true) {
             String nextInput = input.nextLine();
-            if(nextInput.equals("yes")){
+            if (nextInput.equals("yes")) {
                 System.out.println("Please enter number: ");
                 phone.put("Personal", input.nextLine());
                 break;
-            } else if(nextInput.equals("no")) {
+            } else if (nextInput.equals("no")) {
                 break;
             } else {
                 System.out.println("Invalid answer");
@@ -124,13 +126,13 @@ public class Main {
 
         Hashtable<String, String> email = new Hashtable<>();
         System.out.println("Would you like to add a work-email? yes/no");
-        while(true) {
+        while (true) {
             String nextInput = input.nextLine();
-            if(nextInput.equals("yes")){
+            if (nextInput.equals("yes")) {
                 System.out.println("Please enter email: ");
                 email.put("Work", input.nextLine());
                 break;
-            } else if(nextInput.equals("no")) {
+            } else if (nextInput.equals("no")) {
                 break;
             } else {
                 System.out.println("Invalid answer");
@@ -138,13 +140,13 @@ public class Main {
         }
 
         System.out.println("Would you like to add a home-email? yes/no");
-        while(true) {
+        while (true) {
             String nextInput = input.nextLine();
-            if(nextInput.equals("yes")){
+            if (nextInput.equals("yes")) {
                 System.out.println("Please enter email: ");
                 email.put("Personal", input.nextLine());
                 break;
-            } else if(nextInput.equals("no")) {
+            } else if (nextInput.equals("no")) {
                 break;
             } else {
                 System.out.println("Invalid answer");
@@ -158,6 +160,7 @@ public class Main {
         String date = input.nextLine();
 
         addPerson(firstName, lastName, phone, email, address, new SimpleDateFormat(date));
+    }
 
     public static void search(String searchWord){
 
