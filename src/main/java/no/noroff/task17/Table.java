@@ -2,6 +2,7 @@ package no.noroff.task17;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.Set;
 
 /* Table class
  * Must be able to read update and delete entries
@@ -34,7 +35,7 @@ public class Table<K, V>  {
         // Prints key/value pairs to console
         System.out.println(tableName + ": ");
         for (Map.Entry<K, V> entry : table.entrySet()){
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            System.out.println(entry.getKey() + " " + entry.getValue().toString());
         }
     }
 
@@ -61,5 +62,8 @@ public class Table<K, V>  {
             return true;
         }
         return false;
+    }
+    public Set<Map.Entry<K,V>> entrySet(){
+        return table.entrySet();
     }
 }
