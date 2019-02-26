@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -19,6 +20,11 @@ public class Task17Application {
 
 	public static void main(String[] args) {
 		readContact();
+		for (contact con :contacts){
+			System.out.println(con.getFirstName() + " " + con.getLastName());
+			Map<String, String> phone = con.getPhone();
+			System.out.println(phone.get("Personal"));
+		}
 		SpringApplication.run(Task17Application.class, args);
 	}
 
@@ -115,11 +121,11 @@ public class Task17Application {
 				firstName = rs.getString("firstName");
 				lastName = rs.getString("lastName");
 				address = rs.getString("address");
-				dob = rs.getDate("dateOfBirth");
-				email = new Hashtable<>();
+				dob = new Date(10000);//rs.getDate("dateOfBirth");
+				email = new HashMap<>();
 				email.put("Personal", rs.getString("personalEmail"));
 				email.put("Work", rs.getString("workEmail"));
-				phone = new Hashtable<>();
+				phone = new HashMap<>();
 				phone.put("Personal", rs.getString("personalPhone"));
 				phone.put("Home", rs.getString("homePhone"));
 				phone.put("Work", rs.getString("workPhone"));
