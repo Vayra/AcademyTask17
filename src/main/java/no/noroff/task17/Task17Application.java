@@ -18,7 +18,7 @@ public class Task17Application {
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
 
 	public static void main(String[] args) {
-
+		readContact();
 		SpringApplication.run(Task17Application.class, args);
 	}
 
@@ -41,7 +41,58 @@ public class Task17Application {
 
 	}
 
-	public void readContact(){
+	/**
+	 *
+	 */
+	public static void createTables(){
+		String sql = "CREATE TABLE IF NOT EXISTS Contact (\n" +
+				"\tcontactID NVARCHAR(50)  NOT NULL PRIMARY KEY,\n" +
+				"\tfirstName NVARCHAR(50)  NOT NULL,\n" +
+				"\tlastName NVARCHAR(50)  NOT NULL,\n" +
+				"\taddress NVARCHAR(50)  NOT NULL,\n" +
+				"\tdateOfBirth DATE  NULL\n" +
+				");\n" +
+				"CREATE TABLE IF NOT EXISTS Relation (\n" +
+				"\tcontactID NVARCHAR(50) NOT NULL,\n" +
+				"\tkind NVARCHAR(50) NULL\n" +
+				"\n" +
+				");\n" +
+				"CREATE TABLE IF NOT EXISTS Family (\n" +
+				"\tcontactID NVARCHAR(50) NOT NULL,\n" +
+				"\trelativeID NVARCHAR(50) NULL,\n" +
+				"\trelationshipID NVARCHAR(50) NULL\n" +
+				"\n" +
+				");\n" +
+				"CREATE TABLE IF NOT EXISTS Email (\n" +
+				"\tcontactID NVARCHAR(50) NOT NULL,\n" +
+				"\tpersonalEmail NVARCHAR(50)  NULL,\n" +
+				"\tworkEmail NVARCHAR(50)  NULL\n" +
+				");\n" +
+				"CREATE TABLE IF NOT EXISTS Phone (\n" +
+				"\tcontactID NVARCHAR(50) NOT NULL,\n" +
+				"\tpersonalPhone NVARCHAR(50)  NULL,\n" +
+				"\thomePhone NVARCHAR(50)  NULL,\n" +
+				"\tworkPhone NVARCHAR(50)  NULL\n" +
+				");";
+
+		try {
+			openConn();
+			Statement stmt = conn.createStatement();
+
+			stmt.execute(sql);
+
+			closeConn();
+
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 *
+	 */
+	public static void readContact(){
 		String sql = "SELECT * FROM Contact " +
 				"JOIN Email ON Contact.contactID = Email.contactID " +
 				"JOIN Phone ON Contact.contactID = Phone.contactID";
@@ -54,9 +105,11 @@ public class Task17Application {
 		Map<String, String> phone;
 		try {
 			openConn();
+
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList<contact> updatedContacts = new ArrayList<>();
+
 			while (rs.next()) {
 				contactID = rs.getString("contactID");
 				firstName = rs.getString("firstName");
@@ -77,10 +130,39 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		} finally {
 			closeConn();
-
 		}
 	}
 
+	/**
+	 *
+	 * @param ID
+	 * @param param
+	 * @param value
+	 */
+	public static void updateContact(String ID, String param, String value){
+		String sql = "UPDATE Contact " +
+				"SET ? = ? " +
+				"WHERE contactID = ?";
+
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, param);
+			pstmt.setString(2, value);
+			pstmt.setString(3, ID);
+			pstmt.executeUpdate();
+
+			closeConn();
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 *
+	 */
 	public static void readFamily(){
 	    String sql = "SELECT * FROM Family ";
 
@@ -108,7 +190,39 @@ public class Task17Application {
 	        closeConn();
         }
 
-
     }
+
+	/**
+	 *
+	 * @param ID
+	 * @param param
+	 * @param value
+	 */
+	public static void updateFamily(String ID, String param, String value){
+		String sql = "UPDATE Contact " +
+				"SET ? = ? " +
+				"WHERE contactID = ?";
+
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, param);
+			pstmt.setString(2, value);
+			pstmt.setString(3, ID);
+			pstmt.executeUpdate();
+
+			closeConn();
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void insertContact(){}
+	public static void deleteContact(){}
+	public static void insertFamily(){}
+	public static void deleteFamily(){}
+
 
 }
