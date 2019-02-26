@@ -22,7 +22,7 @@ public class Task17Application {
 		SpringApplication.run(Task17Application.class, args);
 	}
 
-	public static void openConn(){
+	private static void openConn(){
 		try {
 			conn = DriverManager.getConnection(URL);
 		}
@@ -31,7 +31,7 @@ public class Task17Application {
 		}
 	}
 
-	public static void closeConn(){
+	private static void closeConn(){
 		try{
 			if (conn != null) conn.close();
 		}
