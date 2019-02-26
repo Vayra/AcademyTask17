@@ -52,13 +52,13 @@ public class Task17Application {
 	        openConn();
 	        Statement stmt = conn.createStatement();
 	        ResultSet rs = stmt.executeQuery(sql);
-	        ArrayList<family> udatedFamilies = new ArrayList<>();
+	        ArrayList<family> updatedFamilies = new ArrayList<>();
 
 	        while(rs.next()){
 	            contactID = rs.getString("contactID");
 	            relationshipID = rs.getString("relationshipID");
 	            relativeID = rs.getString("relativeID");
-	            udatedFamilies.add(new family(contactID, relationshipID, relativeID));
+	            updatedFamilies.add(new family(contactID, relationshipID, relativeID));
             }
 
         } catch (SQLException e){
