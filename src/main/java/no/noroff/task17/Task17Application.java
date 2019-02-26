@@ -71,10 +71,12 @@ public class Task17Application {
 				phone.put("Home", rs.getString("homePhone"));
 				phone.put("Work", rs.getString("workPhone"));
 				updatedContacts.add(new contact(contactID, firstName, lastName, address, dob, email, phone));
+				contacts = updatedContacts;
 			}
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
+			closeConn();
 
 		}
 	}
@@ -98,6 +100,7 @@ public class Task17Application {
 	            relativeID = rs.getString("relativeID");
 	            updatedFamilies.add(new family(contactID, relationshipID, relativeID));
             }
+	        families = updatedFamilies;
 
         } catch (SQLException e){
 	        System.out.println(e.getMessage());
