@@ -12,7 +12,7 @@ CREATE TABLE [Contact] (
 	[dateOfBirth] DATE  NULL
 );
 CREATE TABLE [Relation] (
-	[contactID] NVARCHAR(50) NOT NULL,
+	[relationshipID] NVARCHAR(50) NOT NULL,
 	[kind] NVARCHAR(50) NULL
 
 );

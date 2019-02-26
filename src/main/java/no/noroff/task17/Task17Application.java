@@ -2,13 +2,11 @@ package no.noroff.task17;
 
 import no.noroff.task17.models.contact;
 import no.noroff.task17.models.family;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 @SpringBootApplication
@@ -21,11 +19,12 @@ public class Task17Application {
 	public static void main(String[] args) {
 		readContact();
 		for (contact con :contacts){
-			System.out.println(con.getFirstName() + " " + con.getLastName());
+			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
 			Map<String, String> phone = con.getPhone();
-			System.out.println(phone.get("Personal"));
+			System.out.println("Phone: " + phone.get("Personal"));
+			System.out.println("Address: " + con.getAddress());
 		}
-		SpringApplication.run(Task17Application.class, args);
+		//SpringApplication.run(Task17Application.class, args);
 	}
 
 	private static void openConn(){
@@ -106,7 +105,7 @@ public class Task17Application {
 		String firstName;
 		String lastName;
 		String address;
-		Date dob;
+		String dob;
 		Map<String, String> email;
 		Map<String, String> phone;
 		try {
@@ -121,7 +120,7 @@ public class Task17Application {
 				firstName = rs.getString("firstName");
 				lastName = rs.getString("lastName");
 				address = rs.getString("address");
-				dob = new Date(10000);//rs.getDate("dateOfBirth");
+				dob = rs.getString("dateOfBirth");
 				email = new HashMap<>();
 				email.put("Personal", rs.getString("personalEmail"));
 				email.put("Work", rs.getString("workEmail"));
@@ -146,17 +145,12 @@ public class Task17Application {
 	 * @param value
 	 */
 	public static void updateContact(String ID, String param, String value){
-		String sql = "UPDATE Contact " +
-				"SET ? = ? " +
-				"WHERE contactID = ?";
+		String sql = "UPDATE Contact SET " + param + " = '" + value+ "' WHERE contactID = '"+ID+"'";
 
 		try {
 			openConn();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, param);
-			pstmt.setString(2, value);
-			pstmt.setString(3, ID);
 			pstmt.executeUpdate();
 
 			closeConn();
@@ -229,6 +223,12 @@ public class Task17Application {
 	public static void deleteContact(){}
 	public static void insertFamily(){}
 	public static void deleteFamily(){}
+	public static void updateEmail(){}
+	public static void insertEmail(){}
+	public static void deleteEmail(){}
+	public static void updatePhone(){}
+	public static void insertPhone(){}
+	public static void deletePhone(){}
 
 
 }
