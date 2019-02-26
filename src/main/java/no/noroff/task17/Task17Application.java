@@ -1,6 +1,7 @@
 package no.noroff.task17;
 
 import no.noroff.task17.models.contact;
+import no.noroff.task17.models.family;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 @SpringBootApplication
 public class Task17Application {
 	public static ArrayList<contact> contacts = new ArrayList<>();
-	//public static ArrayList<family> families = new ArrayList<>();
+	public static ArrayList<family> families = new ArrayList<>();
 	private static Connection conn = null;
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
 
