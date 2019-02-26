@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
@@ -55,9 +53,9 @@ public class Task17Application {
 		Map<String, String> email;
 		Map<String, String> phone;
 		try {
-			 openConn();
-			 Statement stmt = conn.createStatement();
-			 ResultSet rs = stmt.executeQuery(sql);
+			openConn();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList<contact> updatedContacts = new ArrayList<>();
 			while (rs.next()) {
 				contactID = rs.getString("contactID");
@@ -81,6 +79,33 @@ public class Task17Application {
 		}
 	}
 
-	public static void readFamily(){}
+	public static void readFamily(){
+	    String sql = "SELECT * FROM Family ";
+
+	    String relativeID;
+	    String contactID;
+	    String relationshipID;
+
+	    try {
+	        openConn();
+	        Statement stmt = conn.createStatement();
+	        ResultSet rs = stmt.executeQuery(sql);
+	        ArrayList<family> udatedFamilies = new ArrayList<>();
+
+	        while(rs.next()){
+	            contactID = rs.getString("contactID");
+	            relationshipID = rs.getString("relationshipID");
+	            relativeID = rs.getString("relativeID");
+	            udatedFamilies.add(new family(contactID, relationshipID, relativeID));
+            }
+
+        } catch (SQLException e){
+	        System.out.println(e.getMessage());
+        } finally {
+	        closeConn();
+        }
+
+
+    }
 
 }
