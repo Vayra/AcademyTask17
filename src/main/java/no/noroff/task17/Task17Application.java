@@ -1,11 +1,13 @@
 package no.noroff.task17;
 
 import no.noroff.task17.models.contact;
+import no.noroff.task17.models.family;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
@@ -13,6 +15,7 @@ import java.util.Map;
 @SpringBootApplication
 public class Task17Application {
 	public static ArrayList<contact> contacts = new ArrayList<>();
+	public static ArrayList<family> families = new ArrayList<>();
 	private static Connection conn = null;
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
 
@@ -21,7 +24,24 @@ public class Task17Application {
 		SpringApplication.run(Task17Application.class, args);
 	}
 
-	public static void openConn(){}
+	public static void openConn(){
+		try {
+			conn = DriverManager.getConnection(URL);
+		}
+		catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	public static void closeConn(){
+		try{
+			if (conn != null) conn.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
 
 	public void readContact(){
 		String sql = "SELECT * FROM Contact " +
