@@ -13,6 +13,7 @@ public class contactController {
     public contact contactFind(@PathVariable String ID){
         System.out.println("Trying to find contact with ID= " + ID);
         contact retContact = null;
+
         //Search the contact list for the ID
         for (contact con : Task17Application.contacts){
             if (con.getContactID().equals(ID)){

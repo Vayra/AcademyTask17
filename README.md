@@ -52,11 +52,4 @@ ____________________________________________________
 
 
 
-# New implementation:
-
-SQLite database to store info.
-Person class to hold info on a person
-In main build console interface that takes SQL commands and passes them to the SQLite DB.
-Use SPRING to get web access
-
 

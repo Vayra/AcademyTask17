@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class contact {
     private String contactID;
-
-
     private String firstName;
     private String lastName;
     private String address;
@@ -14,7 +12,8 @@ public class contact {
     private Map<String, String> email;
     private Map<String, String> phone;
 
-    public contact(String firstName, String lastName, String address, SimpleDateFormat dob, Map<String, String> email, Map<String, String> phone) {
+    public contact(String contactID, String firstName, String lastName, String address, SimpleDateFormat dob, Map<String, String> email, Map<String, String> phone) {
+        this.contactID = contactID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
