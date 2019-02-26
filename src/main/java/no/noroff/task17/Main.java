@@ -15,7 +15,8 @@ public class Main {
     private static int id = 0;
 
     public static void main(String[] args) {
-        firstNameTable = new Table<>("First Name");
+
+        /*firstNameTable = new Table<>("First Name");
         lastNameTable = new Table<>("Last Name");
         phoneTable = new Table<>("Phone number");
         dateOfBirthTable = new Table<>("Date of Birth");
@@ -36,14 +37,39 @@ public class Main {
         email.put("Personal", "helene.harmens@gmail.com");
         email.put("Work", "helene.hunding.harmens@no.experis.com");
         addPerson("Helene", "Harmens", phone, email, "Bjerregaardsgate 24B, 0172 Oslo", new SimpleDateFormat("08/16/1991"));
-      
-        addSetup();
-        for (int id: ids){
-            printPerson(id);
-        }
 
-        String searchWord = "9305";
-        search(searchWord);
+        Scanner in = new Scanner(System.in);
+        String command = "";
+        String[] com;
+
+        System.out.println("Welcome to crappyDB");
+        System.out.println("Type 'help' for help or a command to get started");
+        while (true)
+        {
+            command = in.next();
+            if (command.equalsIgnoreCase("q")) break;
+            com = command.split(" ");
+            //ADD to Person
+            if (com[0].equals("ADD")){
+                addSetup();
+            }
+            if (com[0].equalsIgnoreCase("help")){
+                System.out.println("/-----------------------------------------------");
+                System.out.println("|HELP menu:");
+                System.out.println("| ADD                 adds a new person to the DB");
+                System.out.println("| SELECT  arg1, arg2... FROM db WHERE conditional");
+                System.out.println("|               selects the argument rows from db");
+                System.out.println("|               where condition is met");
+                System.out.println("| UPDATE arg value IN db WHERE condition");
+                System.out.println("|               updates value for arg where condition");
+                System.out.println("| DROP arg (FROM db WHERE conndition) ");
+                System.out.println("|               deletes field arg");
+                System.out.println("\\------------------------------------------------");
+            }
+            if (com[0].equalsIgnoreCase("SELECT")){
+
+            }
+        } */
 
     }
     public static void printName(int key){
