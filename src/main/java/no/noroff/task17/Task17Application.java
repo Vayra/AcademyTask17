@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 
 @SpringBootApplication
 public class Task17Application {
@@ -39,7 +41,43 @@ public class Task17Application {
 
 	}
 
-	public static void readContact(){}
+	public void readContact(){
+		String sql = "SELECT * FROM Contact " +
+				"JOIN Email ON Contact.contactID = Email.contactID " +
+				"JOIN Phone ON Contact.contactID = Phone.contactID";
+		String contactID;
+		String firstName;
+		String lastName;
+		String address;
+		Date dob;
+		Map<String, String> email;
+		Map<String, String> phone;
+		try {
+			openConn();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			ArrayList<contact> updatedContacts = new ArrayList<>();
+			while (rs.next()) {
+				contactID = rs.getString("contactID");
+				firstName = rs.getString("firstName");
+				lastName = rs.getString("lastName");
+				address = rs.getString("address");
+				dob = rs.getDate("dateOfBirth");
+				email = new Hashtable<>();
+				email.put("Personal", rs.getString("personalEmail"));
+				email.put("Work", rs.getString("workEmail"));
+				phone = new Hashtable<>();
+				phone.put("Personal", rs.getString("personalPhone"));
+				phone.put("Home", rs.getString("homePhone"));
+				phone.put("Work", rs.getString("workPhone"));
+				updatedContacts.add(new contact(contactID, firstName, lastName, address, dob, email, phone));
+			}
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+
+		}
+	}
 
 	public static void readFamily(){
 	    String sql = "SELECT * FROM Family ";
