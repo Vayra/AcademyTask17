@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
+    /* Old implementation
     private static Table<Integer, String> firstNameTable;
     private static Table<Integer, String> lastNameTable;
     private static Table<Integer, Map<String, String>> phoneTable; // Might need to change table for this
@@ -12,11 +13,12 @@ public class Main {
     private static Table<Integer, Map<String, String>> emailTable; // might need to change table for this
     private static Table<Integer, String> addressTable;
     private static ArrayList<Integer> ids;
-    private static int id = 0;
+    private static int id = 0;*/
 
     public static void main(String[] args) {
 
-        /*firstNameTable = new Table<>("First Name");
+        /* Old implementation
+        firstNameTable = new Table<>("First Name");
         lastNameTable = new Table<>("Last Name");
         phoneTable = new Table<>("Phone number");
         dateOfBirthTable = new Table<>("Date of Birth");
@@ -71,7 +73,7 @@ public class Main {
             }
         } */
 
-    }
+    }/*
     public static void printName(int key){
         System.out.println(firstNameTable.get(key) + " " + lastNameTable.get(key));
     }
@@ -211,5 +213,5 @@ public class Main {
         if (!found) {
             System.out.println("Did not find what you were searching for.");
         }
-    }
+    } */
 }
