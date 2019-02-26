@@ -1,5 +1,6 @@
 package no.noroff.task17.models;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -8,11 +9,11 @@ public class contact {
     private String firstName;
     private String lastName;
     private String address;
-    private SimpleDateFormat dob;
+    private Date dob;
     private Map<String, String> email;
     private Map<String, String> phone;
 
-    public contact(String contactID, String firstName, String lastName, String address, SimpleDateFormat dob, Map<String, String> email, Map<String, String> phone) {
+    public contact(String contactID, String firstName, String lastName, String address, Date dob, Map<String, String> email, Map<String, String> phone) {
         this.contactID = contactID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -47,11 +48,11 @@ public class contact {
         this.address = address;
     }
 
-    public SimpleDateFormat getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(SimpleDateFormat dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
