@@ -2,6 +2,7 @@ package no.noroff.task17;
 
 import no.noroff.task17.models.contact;
 import no.noroff.task17.models.family;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.sql.*;
@@ -18,13 +19,16 @@ public class Task17Application {
 
 	public static void main(String[] args) {
 		readContact();
+		readFamily();
+
+		// Test readContacts()
 		for (contact con :contacts){
 			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
 			Map<String, String> phone = con.getPhone();
 			System.out.println("Phone: " + phone.get("Personal"));
 			System.out.println("Address: " + con.getAddress());
 		}
-		//SpringApplication.run(Task17Application.class, args);
+		SpringApplication.run(Task17Application.class, args);
 	}
 
 	private static void openConn(){
@@ -47,7 +51,7 @@ public class Task17Application {
 	}
 
 	/**
-	 *
+	 * Creates tables if necessary.
 	 */
 	public static void createTables(){
 		String sql = "CREATE TABLE IF NOT EXISTS Contact (\n" +
@@ -95,7 +99,7 @@ public class Task17Application {
 	}
 
 	/**
-	 *
+	 * Reads contact table to contacts
 	 */
 	public static void readContact(){
 		String sql = "SELECT * FROM Contact " +
@@ -139,13 +143,15 @@ public class Task17Application {
 	}
 
 	/**
+	 * Updates a single value of a contact in the database
 	 *
-	 * @param ID
-	 * @param param
-	 * @param value
+	 * @param ID ContactID of contact to update
+	 * @param tableName name of table to update
+	 * @param param column to update
+	 * @param value new value of param
 	 */
-	public static void updateContact(String ID, String param, String value){
-		String sql = "UPDATE Contact SET " + param + " = '" + value+ "' WHERE contactID = '"+ID+"'";
+	public static void updateTable(String ID, String tableName, String param, String value){
+		String sql = "UPDATE " + tableName + " SET " + param + " = '" + value+ "' WHERE contactID = '"+ID+"'";
 
 		try {
 			openConn();
@@ -161,7 +167,7 @@ public class Task17Application {
 	}
 
 	/**
-	 *
+	 * Reads family table to families
 	 */
 	public static void readFamily(){
 	    String sql = "SELECT * FROM Family ";
@@ -192,41 +198,14 @@ public class Task17Application {
 
     }
 
-	/**
-	 *
-	 * @param ID
-	 * @param param
-	 * @param value
-	 */
-	public static void updateFamily(String ID, String param, String value){
-		String sql = "UPDATE Contact " +
-				"SET ? = ? " +
-				"WHERE contactID = ?";
 
-		try {
-			openConn();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, param);
-			pstmt.setString(2, value);
-			pstmt.setString(3, ID);
-			pstmt.executeUpdate();
-
-			closeConn();
-
-		} catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
-	}
 
 	public static void insertContact(){}
 	public static void deleteContact(){}
 	public static void insertFamily(){}
 	public static void deleteFamily(){}
-	public static void updateEmail(){}
 	public static void insertEmail(){}
 	public static void deleteEmail(){}
-	public static void updatePhone(){}
 	public static void insertPhone(){}
 	public static void deletePhone(){}
 

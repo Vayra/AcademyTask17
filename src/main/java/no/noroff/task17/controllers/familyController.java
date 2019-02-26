@@ -10,14 +10,14 @@ import static no.noroff.task17.Task17Application.families;
 @RestController
 public class familyController {
 
-    @GetMapping("/family{ID}")
+    @GetMapping("/family/{ID}")
     public family familyFind(@PathVariable String ID)
     {
         System.out.println("Trying to find relative: " + ID);
         family returnFamily = null;
         for (family fam : families)
         {
-            if (fam.getRelativeID().equals(ID))
+            if (fam.getRelativeID().equals(ID) || fam.getContactID().equals(ID))
             {
                 System.out.println("----- FAMILY FOUND ---- ");
                 returnFamily = fam;

@@ -29,9 +29,11 @@ public class contactController {
             phone = con.getPhone();
 
             for (String num :phone.values()){
-                if (num.contains(ID)){
-                    System.out.println("----- Found contact");
-                    retContact = con;
+                if (num != null) {
+                    if (num.contains(ID)) {
+                        System.out.println("----- Found contact");
+                        retContact = con;
+                    }
                 }
             }
 
