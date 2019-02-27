@@ -23,12 +23,13 @@ public class Task17Application {
 		readFamily();
 
 		// Test readContacts()
+		/*
 		for (contact con :contacts){
 			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
 			Map<String, String> phone = con.getPhone();
 			System.out.println("Phone: " + phone.get("Personal"));
 			System.out.println("Address: " + con.getAddress());
-		}
+		} */
 		SpringApplication.run(Task17Application.class, args);
 	}
 
