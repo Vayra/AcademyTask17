@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>ContactInformation</title>
     <style>
         body {background-color: pink}
@@ -25,12 +25,9 @@
                     width: 90%;
                     border: 10px solid white;
                     padding: 10px;
+                    color: white;
                }
-        h3{
-            color: white;
-            padding-top: 90px;
-            text-align: center;
-           }
+
 
         img {
                 height: 200px;
@@ -38,7 +35,33 @@
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
-                padding-bottom: 20px;
+             }
+
+        .text {
+                width: 400px;
+                text-align: center;
+                color: white;
+                height: 300px;
+
+              }
+
+         a {
+                color: white;
+
+           }
+
+         a:hover {
+                    color: orange;
+
+                  }
+
+        h3 {
+                color: white;
+                text-align: center;
+
+           }
+
+
 
 
     </style>
@@ -50,12 +73,22 @@
         <p>Made by Stian, Thomas, Helene and Line</p>
     </div>
 
-    <h3>Want to play with our database? We have a satisfaction guarantee!</h3>
-    <img src="stian.jpg" alt="Stian">
+        <h3>Want to play with our database? We have a satisfaction guarantee!</h3>
+        <img src="stian.jpg" alt="Stian"/>
 
+    <a href="nettside2.html">Add a contact? Click here</a>
 <div class="middle">
     <h2>Try it out!</h2>
-    <input type="text" id="myInput" onkeyup="myFunction" placeholder="Search here.." title="Type name, surname or phone">
+    <input class="input-group-filed" id="request-url-input" name="q" type="text" placeholder="Search here" value="Vår link"> <br>
+    <small>Need a hint?</small> <br>
+    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/Stian'); return false;">/contact/Stian</a>
+    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/Heimset'); return false;">/contact/Heimset</a>
+    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/9530'); return false;">/contact/9530</a><br>
+
+    <h4>Response</h4>
+    <pre id="response-output" class="scrollable">JSON shit</pre>
+
+   <!-- <input type="text" id="myInput" onkeyup="myFunction" placeholder="Search here.." title="Type name, surname or phone">
 
     <table id="myTable">
         <tr class="header">
@@ -118,7 +151,7 @@
              }
             }
            }
-</script>
+</script> -->
 
 </div>
 

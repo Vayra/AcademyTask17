@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Add a contact</title>
+    <style>
+    body {background-color: pink}
+    h1{
+        font-family: arial;
+        color: white;
+        text-align: center;
+    }
+
+    .top {
+            margin: auto;
+            width: 60%;
+            border: 3px solid white;
+            padding: 10px;
+
+           }
+
+    p{ font-size: 10px; }
+
+    h3 {
+          color: white;
+          text-align: center;
+       }
+
+    input[type=text], select {
+                                width: 100%;
+                                padding: 12px 20px;
+                                margin: 8px 0;
+                                display: inline-block;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                                box-sizing: border-box;
+                               }
+
+    input[type=submit] {
+                            width: 100%;
+                            background-color: pink;
+                            color: white;
+                            padding: 14px 20px;
+                            margin: 8px 0;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                        }
+
+    input[type=submit]:hover {
+                                background-color: orange;
+                             }
+
+    .person {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 40%;
+            height: 50%;
+            margin: auto;
+
+        }
+
+        a:link {
+                color: white;
+                text-decoration: none;
+
+           }
+
+    </style>
+</head>
+<body>
+<div class = "top">
+    <a href="nettside.html"><h1>Contact information</h1></a>
+    <p>Made by Stian, Thomas, Helene and Line</p>
+</div>
+
+    <h3>Add a contact</h3>
+
+<div class="person">
+    <form action="/action_page.php">
+        <label for="fname">*First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="First name">
+
+        <label for="lname">*Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Last name">
+
+        <label for="address">*Address</label>
+        <input type="text" id="address" name="address1" placeholder="Address">
+
+        <label for="dob">Date Of Birth</label>
+        <input type="text" id="dob" name="dob1" placeholder="Date of birth"> <br>
+
+        <label for="Pmobile">Phone(mobile)</label>
+        <input type="text" id="Pmobile" name="phoneM" placeholder="Mobile">
+
+        <label for="Pwork">Phone(work)</label>
+        <input type="text" id="Pwork" name="phoneW" placeholder="Work">
+
+        <label for="Phome">Phone(home)</label>
+        <input type="text" id="Phome" name="phoneH" placeholder="Home">
+
+        <label for="EmailW">E-mail(work)</label>
+        <input type="text" id="EmailW" name="mailW" placeholder="E-mail, work">
+
+        <label for="EmailH">E-mail(home)</label>
+        <input type="text" id="EmailH" name="mailH" placeholder="E-mail, home">
+
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+</body>
+</html>
