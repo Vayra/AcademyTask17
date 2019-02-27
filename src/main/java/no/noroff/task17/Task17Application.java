@@ -32,7 +32,10 @@ public class Task17Application {
 		insertContact("3", "Craig", "Marais", "South Africa", "1/1/1970",
 				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");
 		insertContact("4", "Ola", "Nordmann", "South Africa", "1/1/1970",
-				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");*/
+				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");
+		insertContact("5", "Thomas", "Grefsrud", "Haakon Tveters vei",
+				"24/11/1989", "thomas.grefsrud@gmail.com", "thomas.grefsrud@no.noroff.com",
+				"93055717", "22554226", "12345");*/
 		readContact();
 
 		readFamily();
