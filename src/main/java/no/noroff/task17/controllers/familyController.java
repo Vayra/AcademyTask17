@@ -14,6 +14,7 @@ public class familyController {
 
     @GetMapping("/family")
     public ArrayList<family>  familyFindDefault(){
+        System.out.println("Returning default search of ALL families");
         ArrayList<family> returnFamilies = new ArrayList<>();
         for (family fam : families)
         {
