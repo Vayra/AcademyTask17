@@ -21,6 +21,7 @@ public class Task17Application {
 	public static void main(String[] args) {
 		readContact();
 		readFamily();
+		showRelatedContacts("1");
 
 		// Test readContacts()
 		for (contact con :contacts){
@@ -29,7 +30,7 @@ public class Task17Application {
 			System.out.println("Phone: " + phone.get("Personal"));
 			System.out.println("Address: " + con.getAddress());
 		}
-		SpringApplication.run(Task17Application.class, args);
+		//SpringApplication.run(Task17Application.class, args);
 	}
 
 	/**
@@ -167,7 +168,6 @@ public class Task17Application {
 	 */
 	public static void readFamily(){
 	    String sql = "SELECT * FROM Family ";
-
 	    String relativeID;
 	    String contactID;
 	    String relationshipID;
@@ -328,6 +328,45 @@ public class Task17Application {
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+	}
+
+
+	private static void showRelatedContacts (String id) {
+
+		String sql = "SELECT * FROM Contact, Family, Relation";
+
+		String relativeID;
+		String contactID;
+		String relationshipID;
+		String firstName;
+		String lastName;
+		String kind;
+
+		try {
+			openConn();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			ArrayList<family> updatedFamilies = new ArrayList<>();
+			///*
+			while(rs.next()){
+				contactID = rs.getString("contactID");
+				firstName = rs.getString("firstName");
+				lastName = rs.getString("lastName");
+				relationshipID = rs.getString("relationshipID");
+				relativeID = rs.getString("relativeID");
+				kind = rs.getString("kind");
+
+				//System.out.println(firstName + " is related to "+ relativeID + " (" + kind + ")");
+			}
+			//*/
+
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		} finally {
+			closeConn();
+		}
+
 	}
 
 
