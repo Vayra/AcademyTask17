@@ -387,7 +387,7 @@ public class Task17Application {
 	}
 
 	/**
-	 * Helper fucntion to execute SQL Statements
+	 * Helper function to execute SQL Statements
 	 * @param sql SQL Statement to execute
 	 */
 	private static void execute(String sql){
