@@ -19,8 +19,7 @@ public class contactController {
 
         //Search the contact list for the ID
         for (contact con : Task17Application.contacts){
-            if (con.getContactID().equals(ID)       ||
-                    con.getFirstName().contains(ID) ||
+            if (    con.getFirstName().contains(ID) ||
                     con.getLastName().contains(ID)    ){
                 System.out.println("----- Found contact");
                 retContact = con;
@@ -35,6 +34,11 @@ public class contactController {
                         retContact = con;
                     }
                 }
+            }
+
+            if (con.getContactID().equals(ID)){
+                System.out.println("----- Found contact");
+                retContact = con;
             }
 
         }
