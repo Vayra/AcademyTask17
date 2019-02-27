@@ -24,12 +24,15 @@ public class Task17Application {
 		showRelatedContacts("1");
 
 		// Test readContacts()
+        /*
 		for (contact con :contacts){
 			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
 			Map<String, String> phone = con.getPhone();
 			System.out.println("Phone: " + phone.get("Personal"));
 			System.out.println("Address: " + con.getAddress());
 		}
+		*/
+
 		//SpringApplication.run(Task17Application.class, args);
 	}
 
@@ -330,45 +333,63 @@ public class Task17Application {
 		}
 	}
 
+    private static contact findContact(String ID){
+        for (contact con:contacts){
+            if (con.getContactID().equals(ID)) return con;
+        }
+        return null;
+    }
 
+    private static String getKind(String ID) {
+        switch (ID) {
+            case "1":
+                return "Parent";
+            case "2":
+                return "Child";
+            case "3":
+                return "Sibling";
+            default:
+                return "";
+        }
+    }
+
+    /**
+     * Show relatives to contactID
+     * @param id contactID
+     */
 	private static void showRelatedContacts (String id) {
 
-		String sql = "SELECT * FROM Contact, Family, Relation";
-
-		String relativeID;
-		String contactID;
-		String relationshipID;
-		String firstName;
-		String lastName;
-		String kind;
+        String sqlFam = "SELECT * FROM Family WHERE contactID = '" + id + "'";
 
 		try {
 			openConn();
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			ArrayList<family> updatedFamilies = new ArrayList<>();
-			///*
+			ResultSet rs = stmt.executeQuery(sqlFam);
+
 			while(rs.next()){
-				contactID = rs.getString("contactID");
-				firstName = rs.getString("firstName");
-				lastName = rs.getString("lastName");
-				relationshipID = rs.getString("relationshipID");
-				relativeID = rs.getString("relativeID");
-				kind = rs.getString("kind");
 
-				//System.out.println(firstName + " is related to "+ relativeID + " (" + kind + ")");
+			    String contactID = rs.getString("contactID");
+                String relativeID = rs.getString("relativeID");
 
+                contact contact = findContact(contactID);
+                contact relative = findContact(relativeID);
 
+                String personFirstName = contact.getFirstName();
+                String personLastName = contact.getLastName();
+
+                String relativeFirstName = relative.getFirstName();
+                String relativeLastName = relative.getLastName();
+
+                String kind = getKind(contactID);
+
+				System.out.println(personFirstName +" "+ personLastName + " is "+ kind +
+                        " to " + relativeFirstName + " " + relativeLastName +".");
 			}
-			//*/
-
-
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
 		} finally {
 			closeConn();
 		}
-
 	}
 
 
