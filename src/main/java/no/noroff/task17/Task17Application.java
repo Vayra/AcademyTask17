@@ -142,7 +142,17 @@ public class Task17Application {
 	public static void updateTable(String ID, String tableName, String param, String value){
 		String sql = "UPDATE " + tableName + " SET " + param + " = '" + value+ "' WHERE contactID = '"+ID+"'";
 
-		execute(sql);
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.executeUpdate();
+
+			closeConn();
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -219,7 +229,7 @@ public class Task17Application {
 			pstmt.setString(2, relationID);
 			pstmt.setString(3, relationshipID);
 
-			pstmt.execute(sql);
+			pstmt.execute();
 
 			closeConn();
 
@@ -246,31 +256,8 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void insertPhone(String ID, String personalPhone, String homePhone, String workPhone){
-		String sql = "INSERT INTO Phone (contactID, personalPhone, homePhone, workPhone) " +
-				"VALUES (?, ?, ?, ?)";
-		try {
-			openConn();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
+	public static void insertPhone(String ID, String personalPhone, String workPhone, String homePhone){}
 
-			pstmt.setString(1, ID);
-			pstmt.setString(2, personalPhone);
-			pstmt.setString(3, homePhone);
-			pstmt.setString(4, workPhone);
-
-			pstmt.execute();
-
-			closeConn();
-
-		} catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
-	}
-
-	/**
-	 *  Helper to execute SQL statements without needing the try/catch in each function.
-	 * @param sql SQL statement
-	 */
 	private static void execute(String sql){
 		try {
 			openConn();
