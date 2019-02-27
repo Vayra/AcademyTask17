@@ -142,17 +142,7 @@ public class Task17Application {
 	public static void updateTable(String ID, String tableName, String param, String value){
 		String sql = "UPDATE " + tableName + " SET " + param + " = '" + value+ "' WHERE contactID = '"+ID+"'";
 
-		try {
-			openConn();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-
-			pstmt.executeUpdate();
-
-			closeConn();
-
-		} catch (SQLException e){
-			System.out.println(e.getMessage());
-		}
+		execute(sql);
 	}
 
 	/**
@@ -235,8 +225,31 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
-	public static void insertPhone(String ID, String personalPhone, String workPhone, String homePhone){}
+	public static void insertPhone(String ID, String personalPhone, String homePhone, String workPhone){
+		String sql = "INSERT INTO Phone (contactID, personalPhone, homePhone, workPhone) " +
+				"VALUES (?, ?, ?, ?)";
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, ID);
+			pstmt.setString(2, personalPhone);
+			pstmt.setString(3, homePhone);
+			pstmt.setString(4, workPhone);
+
+			pstmt.execute(sql);
+
+			closeConn();
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+	/**
+	 *  Helper to execute SQL statements without needing the try/catch in each function.
+	 * @param sql SQL statement
+	 */
 	private static void execute(String sql){
 		try {
 			openConn();
