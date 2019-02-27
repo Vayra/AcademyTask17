@@ -84,7 +84,18 @@ public class Task17Application {
 				"\tworkPhone NVARCHAR(50)  NULL\n" +
 				");";
 
-		execute(sql);
+		try {
+			openConn();
+			Statement stmt = conn.createStatement();
+
+			stmt.execute(sql);
+
+			closeConn();
+
+		}
+		catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -177,29 +188,9 @@ public class Task17Application {
 
     }
 
-	public static void deleteTable(String ID, String tableName){
-		String sql = "DROP IF EXISTS " + tableName;
-		execute(sql);
-	}
 
-	public static void insertContact(){}
-	public static void deleteFromTable(String ID, String tableName){
-		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
-		execute(sql);
-	}
-	public static void insertFamily(String contactID, String relationID, String relationshipID){
-		String sql = "INSERT INTO Family (contactID, relativeID, relationshipID) " +
-				"VALUES (?, ?, ?);";
-		try {
-			openConn();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, contactID);
-			pstmt.setString(2, relationID);
-			pstmt.setString(3, relationshipID);
-
-			pstmt.execute(sql);
-
+<<<<<<< HEAD
 			closeConn();
 
 		} catch (SQLException e){
@@ -263,6 +254,16 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
+=======
+	public static void insertContact(){}
+	public static void deleteContact(){}
+	public static void insertFamily(){}
+	public static void deleteFamily(){}
+	public static void insertEmail(){}
+	public static void deleteEmail(){}
+	public static void insertPhone(){}
+	public static void deletePhone(){}
+>>>>>>> parent of cc03527... Merge pull request #10 from Vayra/insertDB
 
 
 }
