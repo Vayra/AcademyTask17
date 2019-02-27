@@ -2,6 +2,7 @@ package no.noroff.task17;
 
 import no.noroff.task17.models.contact;
 import no.noroff.task17.models.family;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -265,7 +266,7 @@ public class Task17Application {
 	 * Insert contact with contact object
 	 * @param con Contact object to add
 	 */
-	public static void insertContact(contact con){
+	public static void insertContact(@NotNull contact con){
 		insertContact(con.getContactID(), con.getFirstName(), con.getLastName(), con.getAddress(), con.getDob(),
 				con.getEmail().get("Personal"), con.getEmail().get("Work"), con.getPhone().get("Personal"),
 				con.getPhone().get("Home"), con.getPhone().get("Work"));
@@ -388,6 +389,5 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
-
 
 }
