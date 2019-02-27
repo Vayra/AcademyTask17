@@ -357,6 +357,8 @@ public class Task17Application {
 				kind = rs.getString("kind");
 
 				//System.out.println(firstName + " is related to "+ relativeID + " (" + kind + ")");
+
+
 			}
 			//*/
 
