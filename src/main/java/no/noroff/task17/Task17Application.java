@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @SpringBootApplication
 public class Task17Application {
 	public static ArrayList<contact> contacts = new ArrayList<>();
@@ -31,6 +32,9 @@ public class Task17Application {
 		SpringApplication.run(Task17Application.class, args);
 	}
 
+	/**
+	 * Opens connection to DB via static variable conn
+	 */
 	private static void openConn(){
 		try {
 			conn = DriverManager.getConnection(URL);
@@ -40,6 +44,9 @@ public class Task17Application {
 		}
 	}
 
+	/**
+	 * Close connection to DB via static variable conn
+	 */
 	private static void closeConn(){
 		try{
 			if (conn != null) conn.close();
@@ -187,12 +194,31 @@ public class Task17Application {
 
     }
 
-	public static void deleteTable(String ID, String tableName){
+	/**
+	 *  Deletes a table
+	 * @param tableName name of table
+	 */
+	public static void deleteTable(String tableName){
 		String sql = "DROP IF EXISTS " + tableName;
 		execute(sql);
 	}
 
-	public static void insertContact(String contactID, String firstName, String lastName, String address, String dateOfBirth, String personalEmail, String workEmail, String personalPhone, String homePhone, String workPhone){
+	/**
+	 *  Insert a new contact into the DB.
+	 * @param contactID contact ID
+	 * @param firstName First name of contact
+	 * @param lastName Surname of contact
+	 * @param address Contact address
+	 * @param dateOfBirth Date of birth of contact
+	 * @param personalEmail Personal email of contact
+	 * @param workEmail Work email of contact
+	 * @param personalPhone Personal phone of contact
+	 * @param homePhone Home phone of contact
+	 * @param workPhone Work phone of contact
+	 */
+	public static void insertContact(String contactID, String firstName, String lastName, String address,
+									 String dateOfBirth, String personalEmail, String workEmail, String personalPhone,
+									 String homePhone, String workPhone){
 		String sql = "INSERT INTO Contact (contactID, firstName, lastName, address, dateOfBirth) VALUES (?, ?, ?, ?, ?)";
 		try {
 			openConn();
@@ -214,10 +240,23 @@ public class Task17Application {
 		}
 
 	}
+
+	/**
+	 * Delete an entry from the table
+	 * @param ID ID of entry to be deleted
+	 * @param tableName Name of table to delete from
+	 */
 	public static void deleteFromTable(String ID, String tableName){
 		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
 		execute(sql);
 	}
+
+	/**
+	 *  Insert family relation
+	 * @param contactID ID of person to add
+	 * @param relationID ID of relative
+	 * @param relationshipID ID of relation between them
+	 */
 	public static void insertFamily(String contactID, String relationID, String relationshipID){
 		String sql = "INSERT INTO Family (contactID, relativeID, relationshipID) " +
 				"VALUES (?, ?, ?);";
@@ -237,6 +276,13 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	/**
+	 * Insert entry into email table
+	 * @param ID ID of contact to associate email with
+	 * @param personalEmail Personal email address
+	 * @param workEmail Work email address
+	 */
 	public static void insertEmail(String ID, String personalEmail, String workEmail){
 		String sql = "INSERT INTO Email (contactID, personalEmail, workEmail) " +
 				"VALUES (?, ?, ?)";
@@ -256,8 +302,20 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	/**
+	 * Insert entry into phone table
+	 * @param ID ID of contact to associate phone with
+	 * @param personalPhone Personal phone number
+	 * @param workPhone Work phone number
+	 * @param homePhone Home phone number
+	 */
 	public static void insertPhone(String ID, String personalPhone, String workPhone, String homePhone){}
 
+	/**
+	 * Helper fucntion to execute SQL Statements
+	 * @param sql SQL Statement to execute
+	 */
 	private static void execute(String sql){
 		try {
 			openConn();
