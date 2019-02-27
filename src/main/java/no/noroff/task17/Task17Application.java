@@ -19,7 +19,7 @@ public class Task17Application {
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
 
 	public static void main(String[] args) {
-
+		SpringApplication.run(Task17Application.class, args);
 		/*
 		deleteFromTable("3", "Contact");
 		deleteFromTable("3", "Email");
@@ -37,6 +37,8 @@ public class Task17Application {
 		readContact();
 		readFamily();
 
+		showRelatedContacts("1");
+
 		// Test readContacts()
 
 
@@ -51,7 +53,7 @@ public class Task17Application {
 		}
 		*/
 
-		//SpringApplication.run(Task17Application.class, args);
+
 
 	}
 
