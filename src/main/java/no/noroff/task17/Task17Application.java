@@ -19,17 +19,33 @@ public class Task17Application {
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
 
 	public static void main(String[] args) {
+
+		/*
+		deleteFromTable("3", "Contact");
+		deleteFromTable("3", "Email");
+		deleteFromTable("3", "Phone");
+		deleteFromTable("4", "Contact");
+		deleteFromTable("4", "Email");
+		deleteFromTable("4", "Phone");
+		deleteContact("3");
+		deleteContact("4");
+		insertContact("3", "Craig", "Marais", "South Africa", "1/1/1970",
+				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");
+		insertContact("4", "Ola", "Nordmann", "South Africa", "1/1/1970",
+				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");*/
 		readContact();
+
 		readFamily();
 
 		// Test readContacts()
 		/*
 		for (contact con :contacts){
+			System.out.println("ID: " + con.getContactID());
 			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
 			Map<String, String> phone = con.getPhone();
 			System.out.println("Phone: " + phone.get("Personal"));
 			System.out.println("Address: " + con.getAddress());
-		} */
+		}*/
 		SpringApplication.run(Task17Application.class, args);
 	}
 
@@ -117,9 +133,11 @@ public class Task17Application {
 			ArrayList<contact> updatedContacts = new ArrayList<>();
 
 			while (rs.next()) {
+
 				contactID = rs.getString("contactID");
 				firstName = rs.getString("firstName");
 				lastName = rs.getString("lastName");
+				System.out.println("Read contact: " + firstName + " " + lastName);
 				address = rs.getString("address");
 				dob = rs.getString("dateOfBirth");
 				email = new HashMap<>();
@@ -220,7 +238,7 @@ public class Task17Application {
 	public static void insertContact(String contactID, String firstName, String lastName, String address,
 									 String dateOfBirth, String personalEmail, String workEmail, String personalPhone,
 									 String homePhone, String workPhone){
-		String sql = "INSERT INTO Contact (contactID, firstName, lastName, address, dateOfBirth) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO Contact (contactID, firstName, lastName, address, dateOfBirth) VALUES (?, ?, ?, ?, ?);";
 		try {
 			openConn();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -231,15 +249,26 @@ public class Task17Application {
 			pstmt.setString(4, address);
 			pstmt.setString(5, dateOfBirth);
 
-			pstmt.execute();
+			if (pstmt.execute()) System.out.println("Added " + firstName + " " + lastName + " to DB with ID=" + contactID);
 			closeConn();
 			insertEmail(contactID, personalEmail, workEmail);
 			insertPhone(contactID, personalPhone, homePhone, workPhone);
+
 
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
 
+	}
+
+	/**
+	 * Insert contact with contact object
+	 * @param con Contact object to add
+	 */
+	public static void insertContact(contact con){
+		insertContact(con.getContactID(), con.getFirstName(), con.getLastName(), con.getAddress(), con.getDob(),
+				con.getEmail().get("Personal"), con.getEmail().get("Work"), con.getPhone().get("Personal"),
+				con.getPhone().get("Home"), con.getPhone().get("Work"));
 	}
 
 	/**
@@ -250,6 +279,16 @@ public class Task17Application {
 	public static void deleteFromTable(String ID, String tableName){
 		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
 		execute(sql);
+		System.out.println("Deleted ID=" + ID + " from " + tableName);
+	}
+
+	public static void deleteContact(String ID){
+		String[] tables = new String[]{"Contact", "Email", "Phone"};
+		for (String tableName:tables) {
+			String sql = "DELETE FROM " + tableName + " WHERE contactID = '" + ID + "'";
+			execute(sql);
+			System.out.println("Deleted ID=" + ID + " from " + tableName);
+		}
 	}
 
 	/**
@@ -295,7 +334,7 @@ public class Task17Application {
 			pstmt.setString(2, personalEmail);
 			pstmt.setString(3, workEmail);
 
-			pstmt.execute();
+			if(pstmt.execute()) System.out.println("Added emails to ID=" + ID);
 
 			closeConn();
 
@@ -311,7 +350,26 @@ public class Task17Application {
 	 * @param workPhone Work phone number
 	 * @param homePhone Home phone number
 	 */
-	public static void insertPhone(String ID, String personalPhone, String workPhone, String homePhone){}
+	public static void insertPhone(String ID, String personalPhone, String homePhone, String workPhone){
+		String sql = "INSERT INTO Phone (contactID, personalPhone, homePhone, workPhone) " +
+				"VALUES (?, ?, ?, ?)";
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, ID);
+			pstmt.setString(2, personalPhone);
+			pstmt.setString(3, homePhone);
+			pstmt.setString(4, workPhone);
+
+			if(pstmt.execute()) System.out.println("Added phones to ID=" + ID);
+
+			closeConn();
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+	}
 
 	/**
 	 * Helper fucntion to execute SQL Statements
