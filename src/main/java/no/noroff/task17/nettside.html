@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ContactInformation</title>
+    <style>
+        body {background-color: pink}
+        h1{
+            font-family: arial;
+            color: white;
+            text-align: center;
+         }
+
+        .top {
+                margin: auto;
+                width: 60%;
+                border: 3px solid white;
+                padding: 10px;
+               }
+
+        p{ font-size: 10px; }
+
+        .middle{
+                    margin: auto;
+                    width: 90%;
+                    border: 10px solid white;
+                    padding: 10px;
+               }
+        h3{
+            color: white;
+            padding-top: 90px;
+            text-align: center;
+           }
+
+        img {
+                height: 200px;
+                width: 110px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                padding-bottom: 20px;
+
+
+    </style>
+</head>
+<body>
+
+    <div class = "top">
+    <h1>Contact information</h1>
+        <p>Made by Stian, Thomas, Helene and Line</p>
+    </div>
+
+    <h3>Want to play with our database? We have a satisfaction guarantee!</h3>
+    <img src="stian.jpg" alt="Stian">
+
+<div class="middle">
+    <h2>Try it out!</h2>
+    <input type="text" id="myInput" onkeyup="myFunction" placeholder="Search here.." title="Type name, surname or phone">
+
+    <table id="myTable">
+        <tr class="header">
+            <th style="width:20%;">Name</th>
+            <th style="width:20%;">Surname</th>
+            <th style="width:20%;">Phone</th>
+            <th style="width:20%;">Family</th>
+            <th style="width:20%;">E-mail</th>
+        </tr>
+        <tr>
+            <td>Alfreds Futterkiste</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Berglunds snabbkop</td>
+            <td>Sweden</td>
+        </tr>
+        <tr>
+            <td>Island Trading</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Koniglich Essen</td>
+            <td>Germany</td>
+        </tr>
+        <tr>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Canada</td>
+        </tr>
+        <tr>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Italy</td>
+        </tr>
+        <tr>
+            <td>North/South</td>
+            <td>UK</td>
+        </tr>
+        <tr>
+            <td>Paris specialites</td>
+            <td>France</td>
+        </tr>
+    </table>
+
+  <script>
+            function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+             for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                } else {
+                tr[i].style.display = "none";
+              }
+             }
+            }
+           }
+</script>
+
+</div>
+
+</body>
+</html>
