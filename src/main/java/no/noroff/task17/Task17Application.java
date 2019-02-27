@@ -182,7 +182,28 @@ public class Task17Application {
 		execute(sql);
 	}
 
-	public static void insertContact(){}
+	public static void insertContact(String contactID, String firstName, String lastName, String address, String dateOfBirth, String personalEmail, String workEmail, String personalPhone, String homePhone, String workPhone){
+		String sql = "INSERT INTO Contact (contactID, firstName, lastName, address, dateOfBirth) VALUES (?, ?, ?, ?, ?)";
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, contactID);
+			pstmt.setString(2, firstName);
+			pstmt.setString(3, lastName);
+			pstmt.setString(4, address);
+			pstmt.setString(5, dateOfBirth);
+
+			pstmt.execute();
+			closeConn();
+			insertEmail(contactID, personalEmail, workEmail);
+			insertPhone(contactID, personalPhone, homePhone, workPhone);
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+
+	}
 	public static void deleteFromTable(String ID, String tableName){
 		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
 		execute(sql);
@@ -217,7 +238,7 @@ public class Task17Application {
 			pstmt.setString(2, personalEmail);
 			pstmt.setString(3, workEmail);
 
-			pstmt.execute(sql);
+			pstmt.execute();
 
 			closeConn();
 
@@ -237,7 +258,7 @@ public class Task17Application {
 			pstmt.setString(3, homePhone);
 			pstmt.setString(4, workPhone);
 
-			pstmt.execute(sql);
+			pstmt.execute();
 
 			closeConn();
 
