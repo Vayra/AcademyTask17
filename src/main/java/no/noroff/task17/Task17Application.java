@@ -212,7 +212,7 @@ public class Task17Application {
 	            contactID = rs.getString("contactID");
 	            relationshipID = rs.getString("relationshipID");
 	            relativeID = rs.getString("relativeID");
-	            updatedFamilies.add(new family(contactID, relationshipID, relativeID));
+	            updatedFamilies.add(new family(contactID, relativeID, relationshipID));
             }
 	        families = updatedFamilies;
 
@@ -276,7 +276,7 @@ public class Task17Application {
 	 * Insert contact with contact object
 	 * @param con Contact object to add
 	 */
-	public static void insertContact(contact con){
+	public static void insertContact( contact con){
 		insertContact(con.getContactID(), con.getFirstName(), con.getLastName(), con.getAddress(), con.getDob(),
 				con.getEmail().get("Personal"), con.getEmail().get("Work"), con.getPhone().get("Personal"),
 				con.getPhone().get("Home"), con.getPhone().get("Work"));
@@ -293,6 +293,10 @@ public class Task17Application {
 		System.out.println("Deleted ID=" + ID + " from " + tableName);
 	}
 
+	/**
+	 * Deletes contact with given ID from Contact, Email and Phone
+	 * @param ID ID of contact to remove
+	 */
 	public static void deleteContact(String ID){
 		String[] tables = new String[]{"Contact", "Email", "Phone"};
 		for (String tableName:tables) {
@@ -399,5 +403,6 @@ public class Task17Application {
 			System.out.println(e.getMessage());
 		}
 	}
+
 
 }
