@@ -308,7 +308,7 @@ public class Task17Application {
 			pstmt.setString(2, relationID);
 			pstmt.setString(3, relationshipID);
 
-			pstmt.execute();
+			if(pstmt.execute()) System.out.println("Inserted relation between IDs " + contactID + " and " + relationID);
 
 			closeConn();
 
