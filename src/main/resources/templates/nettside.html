@@ -64,6 +64,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -73,20 +74,28 @@
         <p>Made by Stian, Thomas, Helene and Line</p>
     </div>
 
+
         <h3>Want to play with our database? We have a satisfaction guarantee!</h3>
         <img src="stian.jpg" alt="Stian"/>
 
-    <a href="nettside2.html">Add a contact? Click here</a>
+    <a href="/addPerson">Add a contact? Click here</a>
 <div class="middle">
     <h2>Try it out!</h2>
-    <input class="input-group-filed" id="request-url-input" name="q" type="text" placeholder="Search here" value="Vår link"> <br>
-    <small>Need a hint?</small> <br>
-    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/Stian'); return false;">/contact/Stian</a>
-    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/Heimset'); return false;">/contact/Heimset</a>
-    <a href="#" onclick="updateRequestURL('https://vårdatabase.com/contact/9530'); return false;">/contact/9530</a><br>
+    <!--<input class="input-group-filed" id="request-url-input" name="q" type="text" placeholder="Search here" value="localhost:8080/contact/Stian">
+    <input type="button" value="Submit"/>-->
+    <form action='/contactSearch/' method='get'>
+        <input type='text' name='search'/>
+        <input type='submit' value='Search'/>
+    </form>
+    <br>
+    <small>Need a hint? Search for first name, last name or phone</small> <br>
+
+
 
     <h4>Response</h4>
-    <pre id="response-output" class="scrollable">JSON shit</pre>
+    <pre id="response-output" class="scrollable">
+
+    </pre>
 
    <!-- <input type="text" id="myInput" onkeyup="myFunction" placeholder="Search here.." title="Type name, surname or phone">
 
