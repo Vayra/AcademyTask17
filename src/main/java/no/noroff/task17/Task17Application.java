@@ -36,10 +36,15 @@ public class Task17Application {
 
 		//updateTable("4", "Phone", "homePhone", "22334455");
 
+		//insertFamily("3", "4", "3");
+		//insertFamily("4","3", "3");
+		//insertFamily("2","1","2");
+
 		readContact();
 		readFamily();
 
 		showRelatedContacts("1");
+		showRelatedContacts("3");
 
 		// Test readContacts()
 
@@ -240,7 +245,7 @@ public class Task17Application {
 	 */
 	public static void deleteTable(String tableName){
 		String sql = "DROP IF EXISTS " + tableName;
-		execute(sql);
+		if(execute(sql)) System.out.println("Deleted table " + tableName);
 	}
 
 	/**
@@ -299,8 +304,7 @@ public class Task17Application {
 	 */
 	public static void deleteFromTable(String ID, String tableName){
 		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
-		execute(sql);
-		System.out.println("Deleted ID=" + ID + " from " + tableName);
+		if(execute(sql)) System.out.println("Deleted ID=" + ID + " from " + tableName);
 	}
 
 	/**
@@ -311,8 +315,7 @@ public class Task17Application {
 		String[] tables = new String[]{"Contact", "Email", "Phone"};
 		for (String tableName:tables) {
 			String sql = "DELETE FROM " + tableName + " WHERE contactID = '" + ID + "'";
-			execute(sql);
-			System.out.println("Deleted ID=" + ID + " from " + tableName);
+			if(execute(sql)) System.out.println("Deleted ID=" + ID + " from " + tableName);
 		}
 	}
 
@@ -396,6 +399,11 @@ public class Task17Application {
 		}
 	}
 
+	/**
+	 *  find contact by ID in contacts
+	 * @param ID contactID of contacy
+	 * @return contact if found, otherwise null
+	 */
     private static contact findContact(String ID){
         for (contact con:contacts){
             if (con.getContactID().equals(ID)) return con;
@@ -403,7 +411,12 @@ public class Task17Application {
         return null;
     }
 
-    private static String getKind(String ID) {
+	/**
+	 * find type of relation by ID
+	 * @param ID relationshipID
+	 * @return String of relation
+	 */
+	private static String getKind(String ID) {
         switch (ID) {
             case "1":
                 return "Parent";
@@ -456,18 +469,20 @@ public class Task17Application {
 	 * Helper function to execute SQL Statements
 	 * @param sql SQL Statement to execute
 	 */
-	private static void execute(String sql){
+	private static boolean execute(String sql){
+		boolean success = false;
 		try {
 			openConn();
 			Statement stmt = conn.createStatement();
 
-			stmt.execute(sql);
+			if(stmt.execute(sql)) success = true;
 
 			closeConn();
       
 		} catch (SQLException e){
 			System.out.println(e.getMessage());
 		}
+		return success;
 	}
 
 
