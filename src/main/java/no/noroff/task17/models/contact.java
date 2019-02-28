@@ -1,5 +1,6 @@
 package no.noroff.task17.models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class contact {
@@ -19,6 +20,27 @@ public class contact {
         this.dob = dob;
         this.email = email;
         this.phone = phone;
+    }
+
+    public contact(String contactID, String firstName, String lastName, String address, String dob, String Pmobile, String Pwork, String Phome, String EmailW, String EmailH){
+        Map<String, String> mail = new HashMap<>();
+        Map<String, String> phone = new HashMap<>();
+
+        phone.put("Personal", Pmobile);
+        phone.put("Home", Phome);
+        phone.put("Work", Pwork);
+
+        mail.put("Personal", EmailH);
+        mail.put("Work", EmailW);
+
+        this.contactID = contactID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.dob = dob;
+        this.email = mail;
+        this.phone = phone;
+
     }
 
     public String getContactID() {

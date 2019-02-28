@@ -296,7 +296,7 @@ public class Task17Application {
 	 */
 	public static void insertContact( contact con){
 		insertContact(con.getContactID(), con.getFirstName(), con.getLastName(), con.getAddress(), con.getDob(),
-				con.getEmail().get("Personal"), con.getEmail().get("Work"), con.getPhone().get("Personal"),
+				con.getEmail().get("Personal"), con.getEmail().get("Home"), con.getPhone().get("Work"),
 				con.getPhone().get("Home"), con.getPhone().get("Work"));
 	}
 

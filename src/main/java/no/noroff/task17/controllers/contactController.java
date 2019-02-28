@@ -25,12 +25,8 @@ public class contactController {
     @GetMapping("/contact")
     public List<contact> contactFindDefault(){
         System.out.println("Returning default search of ALL contacts");
-        ArrayList<contact> retContacts = new ArrayList<>();
-        Map<String, String> phone;
 
-        for (contact con : Task17Application.contacts){
-            if (!retContacts.contains(con)) retContacts.add(con);
-        }
+        ArrayList<contact> retContacts = new ArrayList<>(contacts);
 
         return retContacts;
     }

@@ -15,11 +15,7 @@ public class familyController {
     @GetMapping("/family")
     public ArrayList<family>  familyFindDefault(){
         System.out.println("Returning default search of ALL families");
-        ArrayList<family> returnFamilies = new ArrayList<>();
-        for (family fam : families)
-        {
-            returnFamilies.add(fam);
-        }
+        ArrayList<family> returnFamilies = new ArrayList<>(families);
         return returnFamilies;
     }
 
@@ -34,7 +30,7 @@ public class familyController {
             if (fam.getRelativeID().equals(ID) || fam.getContactID().equals(ID))
             {
                 System.out.println("----- FAMILY FOUND ---- ");
-                if (returnFamilies.contains(fam)) returnFamilies.add(fam);
+                if (!returnFamilies.contains(fam)) returnFamilies.add(fam);
             }
         }
         if(returnFamilies == null){
