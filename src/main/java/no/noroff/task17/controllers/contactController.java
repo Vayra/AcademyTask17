@@ -2,18 +2,28 @@ package no.noroff.task17.controllers;
 
 import no.noroff.task17.Task17Application;
 import no.noroff.task17.models.contact;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static no.noroff.task17.Task17Application.*;
 
 @RestController
 public class contactController {
+    AtomicInteger id = new AtomicInteger(lastID);
+    @PostMapping("/contact")
+    public contact createContact(@RequestBody contact newContact){
+        newContact.setContactID(""+id.incrementAndGet());
+        insertContact(newContact);
+        readContact();
+        return newContact;
+    }
 
     @GetMapping("/contact")
-    public ArrayList<contact> contactFindDefault(){
+    public List<contact> contactFindDefault(){
         System.out.println("Returning default search of ALL contacts");
         ArrayList<contact> retContacts = new ArrayList<>();
         Map<String, String> phone;
@@ -26,7 +36,7 @@ public class contactController {
     }
 
     @GetMapping("/contact/{search}/{ID}")
-    public ArrayList<contact> contactFind(@PathVariable String search, @PathVariable String ID) {
+    public List<contact> contactFind(@PathVariable String search, @PathVariable String ID) {
 
         System.out.println("Trying to find contact with ID= " + ID);
         ArrayList<contact> retContacts = new ArrayList<>();
@@ -87,7 +97,7 @@ public class contactController {
         return retContacts;
     }
     @GetMapping("/contact/{ID}")
-    public ArrayList<contact> contactFind(@PathVariable String ID){
+    public List<contact> contactFind(@PathVariable String ID){
 
         System.out.println("Trying to find contact with ID= " + ID);
         ArrayList<contact> retContacts = new ArrayList<>();

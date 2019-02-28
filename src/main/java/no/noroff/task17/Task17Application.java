@@ -17,6 +17,7 @@ public class Task17Application {
 	public static ArrayList<family> families = new ArrayList<>();
 	private static Connection conn = null;
 	private static String URL = "jdbc:sqlite::resource:ContactInformationDB.db";
+	public static int lastID = 0;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Task17Application.class, args);
@@ -143,7 +144,8 @@ public class Task17Application {
 	public static void readContact(){
 		String sql = "SELECT * FROM Contact " +
 				"JOIN Email ON Contact.contactID = Email.contactID " +
-				"JOIN Phone ON Contact.contactID = Phone.contactID";
+				"JOIN Phone ON Contact.contactID = Phone.contactID " +
+				"ORDER BY Contact.contactID";
 		String contactID;
 		String firstName;
 		String lastName;
@@ -174,8 +176,9 @@ public class Task17Application {
 				phone.put("Home", rs.getString("homePhone"));
 				phone.put("Work", rs.getString("workPhone"));
 				updatedContacts.add(new contact(contactID, firstName, lastName, address, dob, email, phone));
-				contacts = updatedContacts;
 			}
+			contacts = updatedContacts;
+			lastID = Integer.parseInt(contacts.get(contacts.size() - 1).getContactID());
 		} catch(SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
