@@ -22,7 +22,7 @@ public class contact {
         this.phone = phone;
     }
 
-    public contact(String contactID, String firstName, String lastName, String address, String dob, String Pmobile, String Pwork, String Phome, String EmailW, String EmailH){
+    public contact( String firstName, String lastName, String address, String dob, String Pmobile, String Pwork, String Phome, String EmailW, String EmailH){
         Map<String, String> mail = new HashMap<>();
         Map<String, String> phone = new HashMap<>();
 
@@ -33,7 +33,7 @@ public class contact {
         mail.put("Personal", EmailH);
         mail.put("Work", EmailW);
 
-        this.contactID = contactID;
+        this.contactID = "0";
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
