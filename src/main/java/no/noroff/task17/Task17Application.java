@@ -34,6 +34,8 @@ public class Task17Application {
 		insertContact("4", "Ola", "Nordmann", "South Africa", "1/1/1970",
 				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");*/
 
+		//updateTable("4", "Phone", "homePhone", "22334455");
+
 		readContact();
 		readFamily();
 
