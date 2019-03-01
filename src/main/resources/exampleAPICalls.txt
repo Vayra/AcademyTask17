@@ -1,0 +1,43 @@
+curl -i -H "Content-Type: application/json" -X POST -d '{ 
+"firstName": "John", 
+"lastName": "Doe", 
+"address": "Bumfuck, Idaho", 
+"personalPhone": "1122334455", 
+"workPhone": "99883322",
+"homePhone": "12345678", 
+"workEmail": "John@Doe.com",
+"personalEmail": "blehl@johndoe.com",
+"dob": "15/03/1995"}' localhost:8080/contact
+
+curl -i -H "Content-Type: application/json" -X POST -d '{ 
+"firstName": "John", 
+"lastName": "Doe", 
+"address": "Parkveien", 
+"dob":"15/03/1970", 
+"email":[{"Personal":"john@gmail.com", "Work": "john@doe.no"}],
+"phone":[{
+"Personal":"11223344",
+"Home":"55667788",
+"Work":""
+}]
+}' localhost:8080/contact
+
+
+curl -i -H "Content-Type: application/json" -X GET localhost:8080/contact/
+
+curl -i -H "Content-Type: application/json" -X POST -d '{ 
+"contactID": "5",
+"relativeID": "6",
+"relationshipID": "2"
+}' localhost:8080/update/family
+
+
+curl -i -H "Content-Type: application/json" -X POST -d '{ 
+"contactID": "7",
+"lastName": "Hancock", 
+"address": "123 Nowhere Road, Bumfuck, Idaho", 
+"personalPhone": "1122334455", 
+"workPhone": "99883322",
+"homePhone": "12345678", 
+"workEmail": "John@Hancock.com",
+"personalEmail": "blehl@john.com"}' localhost:8080/update/contact
