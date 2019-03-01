@@ -15,4 +15,7 @@ public class homeController {
     @RequestMapping("/addPerson")
     public String addPerson(){return "nettside2";}
 
+   // @RequestMapping("/addPerson")
+   // public String addPerson;
+
 }
