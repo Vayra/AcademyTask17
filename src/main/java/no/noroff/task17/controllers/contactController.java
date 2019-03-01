@@ -16,10 +16,41 @@ import static no.noroff.task17.Task17Application.*;
 public class contactController {
     AtomicInteger id = new AtomicInteger(lastID);
 
-    @PostMapping("/contact/")
-    public contact createContact(@RequestBody tempContact newCon){
+    @GetMapping("/delete/contact/{contactID}")
+    public String deleteContact(@PathVariable String contactID){
+        contact con = getContact(contactID);
+        if (con != null) {
+            deleteContact(contactID);
+            return "Contact deleted";
+        }
+        return "Contact not found";
+    }
 
-        contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
+    @PostMapping("/update/contact")
+    public contact updateContact(@RequestBody Map<String, String> updateBody){
+
+        String conID = updateBody.get("contactID");
+
+        for (String key:updateBody.keySet()){
+            if (key.toLowerCase().contains("phone")){
+                updateTable(conID, "Phone", key, updateBody.get(key));
+            }
+            else if (key.toLowerCase().contains("email")){
+                updateTable(conID, "Email", key, updateBody.get(key));
+            }
+            else {
+                updateTable(conID, "Contact", key, updateBody.get(key));
+            }
+        }
+        readContact();
+        contact newCon = getContact(conID);
+
+        return newCon;
+    }
+
+    @PostMapping("/contact")
+    public contact createContact(@RequestBody tempContact newCon){
+         contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
                 newCon.getAddress(),newCon.getDob(),newCon.getPersonalPhone(),newCon.getWorkPhone(),newCon.getHomePhone(),
                 newCon.getWorkEmail(),newCon.getPersonalEmail());
         newContact.setContactID(""+id.incrementAndGet());
@@ -32,7 +63,6 @@ public class contactController {
         readContact();
 
         return newContact;
-
     }
 
     @PostMapping("/contactAdd/")
@@ -239,7 +269,6 @@ public class contactController {
         {
             System.out.println(" --- CONTACT WAS NOT FOUND --- ");
         }
-
         return returnContact;
     }
 

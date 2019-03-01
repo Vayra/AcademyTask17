@@ -12,6 +12,27 @@ import static no.noroff.task17.Task17Application.*;
 @RestController
 public class familyController {
 
+    @GetMapping("delete/family/{contactID}/{relativeID}")
+    public String deleteFamily(@PathVariable String contactID, @PathVariable String relativeID){
+
+        if(deleteFamilyFromTable(contactID,relativeID)) return "Delete successful";
+        return "Delete failed";
+    }
+
+    @PostMapping("update/family")
+    public family updateFamily(@RequestBody Map<String, String> updateBody){
+        String conID = updateBody.get("contactID");
+        String relID = updateBody.get("relativeID");
+        String kind = updateBody.get("relationshipID");
+        if(updateFamilyTable(conID, relID,kind) && updateFamilyTable(relID, conID, getReciprocalRel(kind))){
+            System.out.println("Update successful");
+        }
+        else System.out.println("Update failed");
+        readFamily();
+        return getFamily(conID, relID);
+
+    }
+
     @RequestMapping("/familySearch/")
     public ArrayList<family> findFamilyByName(@RequestParam(value="search", defaultValue ="Stian") String ID){
         ArrayList<contact> cons = new ArrayList<>();
@@ -63,20 +84,8 @@ public class familyController {
         System.out.println("RelativeID: " + fam.getRelativeID());
         System.out.println("RelationshipID: " + fam.getRelationshipID());
         insertFamily(fam);
-        String reciprocRelation;
-        switch(fam.getRelationshipID()) {
-            case "1":
-                reciprocRelation = "2";
-                break;
-            case "2":
-                reciprocRelation = "1";
-                break;
-            case "3":
-                reciprocRelation = "3";
-                break;
-            default:
-                reciprocRelation = fam.getRelationshipID();
-        }
+        String reciprocRelation = getReciprocalRel(fam.getRelationshipID());
+
         insertFamily(fam.getRelativeID(), fam.getContactID(), reciprocRelation);
 
         return fam;
