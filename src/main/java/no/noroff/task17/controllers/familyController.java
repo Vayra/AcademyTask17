@@ -5,34 +5,44 @@ import no.noroff.task17.models.family;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import static no.noroff.task17.Task17Application.*;
 
 @RestController
 public class familyController {
 
-    @GetMapping("/family/name/{ID}")
+    @GetMapping("/family/search/{ID}")
     public ArrayList<family> findFamilyByName(@PathVariable String ID){
-        contact con = null;
+        ArrayList<contact> cons = new ArrayList<>();
 
         for (contact c:contacts){
-            if ((c.getFirstName() + " " + c.getLastName()).contains(ID)){
-                con = c;
+            if ((c.getFirstName() + " " + c.getLastName()).toLowerCase().contains(ID.toLowerCase())){
+                if(!cons.contains(c)) cons.add(c);
+            }
+            Map<String, String> phone = c.getPhone();
+            for (String num : phone.values()){
+
+                if (num != null && num.contains(ID)){
+                    if (!cons.contains(c)) cons.add(c);
+                }
             }
         }
 
         System.out.println("Trying to find relative: " + ID);
         ArrayList<family> returnFamilies = new ArrayList<>();
 
-        if (con == null) return returnFamilies;
+        if (cons.size() == 0) return returnFamilies;
 
         for (family fam : families)
         {
-
-            if (fam.getContactID().equals(con.getContactID()))
-            {
-                System.out.println("----- FAMILY FOUND ---- ");
-                if (!returnFamilies.contains(fam)) returnFamilies.add(fam);
+            String cID = fam.getContactID().split("/")[fam.getContactID().split("/").length - 1];
+            System.out.println(cID);
+            for (contact con: cons) {
+                if (cID.equals(con.getContactID())) {
+                    System.out.println("----- FAMILY FOUND ---- ");
+                    if (!returnFamilies.contains(fam)) returnFamilies.add(fam);
+                }
             }
         }
         if(returnFamilies == null){
@@ -86,8 +96,7 @@ public class familyController {
         {
             String cID = fam.getContactID().split("/")[fam.getContactID().split("/").length - 1];
             String rID = fam.getRelativeID().split("/")[fam.getRelativeID().split("/").length - 1];
-            System.out.println(cID);
-            System.out.println(rID);
+
             if (cID.equals(ID) || rID.equals(ID))
             {
                 System.out.println("----- FAMILY FOUND ---- ");
