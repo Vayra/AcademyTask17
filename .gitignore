@@ -17,7 +17,9 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-/out/
+/out/production/classes
+/out/production/resources/static
+/out/production/resources/templates
 
 ### NetBeans ###
 /nbproject/private/

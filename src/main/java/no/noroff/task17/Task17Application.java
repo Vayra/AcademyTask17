@@ -21,7 +21,7 @@ public class Task17Application {
 
 	public static void main(String[] args) {
 		readContact();
-		//SpringApplication.run(Task17Application.class, args);
+		SpringApplication.run(Task17Application.class, args);
 		/*
 		deleteFromTable("3", "Contact");
 		deleteFromTable("3", "Email");
@@ -48,6 +48,7 @@ public class Task17Application {
 		//showRelatedContacts("1");
 		//showRelatedContacts("3");
 		//deleteFromTable("5", "Family");
+		//deleteFromTable("6", "Family");
 
 
 		for (int id=1; id<= lastID; id++){
