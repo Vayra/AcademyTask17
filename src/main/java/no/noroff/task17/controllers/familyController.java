@@ -1,5 +1,6 @@
 package no.noroff.task17.controllers;
 
+import no.noroff.task17.models.contact;
 import no.noroff.task17.models.family;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,38 @@ import static no.noroff.task17.Task17Application.*;
 
 @RestController
 public class familyController {
+
+    @GetMapping("/family/name/{ID}")
+    public ArrayList<family> findFamilyByName(@PathVariable String ID){
+        contact con = null;
+
+        for (contact c:contacts){
+            if ((c.getFirstName() + " " + c.getLastName()).contains(ID)){
+                con = c;
+            }
+        }
+
+        System.out.println("Trying to find relative: " + ID);
+        ArrayList<family> returnFamilies = new ArrayList<>();
+
+        if (con == null) return returnFamilies;
+
+        for (family fam : families)
+        {
+
+            if (fam.getContactID().equals(con.getContactID()))
+            {
+                System.out.println("----- FAMILY FOUND ---- ");
+                if (!returnFamilies.contains(fam)) returnFamilies.add(fam);
+            }
+        }
+        if(returnFamilies == null){
+            System.out.println("NOT FOUND");
+
+        }
+        return returnFamilies;
+
+    }
 
     @PostMapping("/family")
     public family createFammily(@RequestBody family fam){
