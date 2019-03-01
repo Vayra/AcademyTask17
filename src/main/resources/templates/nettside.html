@@ -3,31 +3,95 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>ContactInformation</title>
+
+
     <style>
-        body {background-color: pink}
+        body {
+            background-color: #339A9A;
+            text-align: center;
+            }
+
         h1{
             font-family: arial;
             color: white;
             text-align: center;
          }
 
-        .top {
-                margin: auto;
-                width: 60%;
-                border: 3px solid white;
-                padding: 10px;
-               }
+         h2 {
+                color: white;
+                text-align: center;
+         }
 
-        p{ font-size: 10px; }
+         h3 {
+                color: white;
+                text-align: left;
+         }
+
+         p {
+            font-size: 16px;
+            }
+
+
+        .top {
+            margin: auto;
+            width: 60%;
+            border: 3px solid white;
+            padding: 10px;
+            display: inline-block;
+            float: center;
+            justify-content: center;
+         }
+
+         .topRight {
+            margin: auto;
+            width: 70%;
+
+            padding: 10px;
+            float: right;
+         }
+
+         .topLeft {
+            margin: auto;
+            width: 20%;
+
+            padding: 10px;
+            padding-right: 0px;
+            float: left;
+         }
+
+
 
         .middle{
-                    margin: auto;
-                    width: 90%;
-                    border: 10px solid white;
-                    padding: 10px;
-                    color: white;
+            background-color: #5CB9B9;
+            margin: auto;
+            width: 90%;
+            border: 2px solid white;
+            padding: 10px;
+            color: white;
+            display: inline-block;
+            float: center;
+         }
 
-               }
+
+         .middleRight{
+            background-color: #339A9A;
+            margin: auto;
+            width: 48%;
+            border: 1px solid white;
+            padding: 10px;
+            color: white;
+            float: right;
+         }
+
+         .middleLeft{
+            background-color: #339A9A;
+            margin: auto;
+            width: 48%;
+            border: 1px solid white;
+            padding: 10px;
+            color: white;
+            float: left;
+         }
 
 
         img {
@@ -43,30 +107,23 @@
                 text-align: center;
                 color: white;
                 height: 300px;
-
               }
 
          a {
                 color: white;
-
            }
 
          a:hover {
                     color: orange;
-
                   }
 
-        h3 {
-                color: white;
-                text-align: center;
 
-           }
 
         iframe {
+                    background-color: white;
                     height: 200px;
-                    width: 45%;
+                    width: 100%;
                     display: none;
-
                 }
 
         #response {
@@ -75,100 +132,181 @@
 
         #response1 {
                     display: none;
-
                   }
 
-        #explanation {
+        #explanation, #explanation2, #explanation3, #explanation4 {
                         color: white;
+                        background-color: #5CB9B9;
+                        border: 1px solid white;
+                        width: 90%;
+                        float: center;
                         text-align: left;
                         font-size: 16px;
-                        padding-left: 700px;
-                        padding-bottom: 50px;
-
+                        padding: 10px;
                      }
-
-
-
     </style>
+
+
 </head>
 <body>
 
     <div class = "top">
-    <h1>Contact information</h1>
-        <p>Made by Stian, Thomas, Helene and Line</p>
+        <div class="topLeft">
+            <img src="stian.jpg" alt="Stian"/>
+        </div>
+
+        <div class="topRight">
+            <h1>Contact information</h1>
+            <p align="center">Made by Stian, Thomas, Helene and Line</p>
+            <h2>Want to play with our database? We have a satisfaction guarantee!</h2>
+        </div>
     </div>
 
 
-        <h3>Want to play with our database? We have a satisfaction guarantee!</h3>
-        <img src="stian.jpg" alt="Stian"/>
-
-    <a href="/addPerson">Add a contact? Click here</a>
-<div class="middle">
-    <h2>Try it out!</h2>
-    <h3>Search Contact</h3>
-    <form action='/contactSearch/' target="my-iframe" method='get'>
-        <input type='text' name='search'/>
-        <input onclick="showContact(), showResponse()" type='submit' value='Search'/>
-    </form>
-    <br>
-    <small>Need a hint? Search for first name, last name or phone</small> <br>
-
-     <h4 id="response">Response</h4>
-    <iframe id="contactFrame" name="my-iframe" src="/familySearch"></iframe>
 
 
-    <h3>Search Family</h3>
-    <form action='/familySearch/' target="my-iframe2" method='get'>
-        <input type='text' name='search'/>
-        <input onclick="showFamily(), showResponse1()" type='submit' value="Find family"/>
+    <div align="center">
 
-        <h4 id="response1">Response</h4>
-        <iframe id="familyFrame" name ="my-iframe2" scr="/familySearch"></iframe>
+        <h1>---------- CREATE ----------</h1>
+        <a href="/addPerson">CREATE a contact? Click here</a>
 
-    </form>
 
+        <div align="center">
+
+            <h2>POST JSON</h2>
+            <p id="explanation4">
+                <br><strong>/contact</strong>
+                <br>&emsp;&emsp;-- POST Json with following fields to create a contact:
+                <br>&emsp;&emsp;&emsp;&emsp;firstName;
+                lastName;
+                address;
+                dob;
+                personalPhone;
+                workPhone;
+                homePhone;
+                workEmail;
+                personalEmail;
+                <br>&emsp;&emsp;&emsp;fields can be null or "";
+
+                <br><strong>/family</strong>
+                <br>&emsp;&emsp;-- POST Json with following fields to create family relation; contactID, relativeID, relationship
+            </p>
+        </div>
+
+
+        <h1>---------- READ ----------</h1>
+
+        <a href="/contact">VIEW ALL CONTACTS</a>
+
+    <h2>Edit the URL</h2>
     <p id="explanation">
-        /contact = returns all the contacts
-        /contact/{search}/{ID} = instead of "search" you can put "first, "last", "phone". A name or number insted of "ID".
-        it will return the person you search for.
-        /contact/{ID} = instead of "ID" write a name, e.g contact/Helene. <br> <br>
+        <br><strong>/contact</strong>
+        <br> &emsp;&emsp;-- gets all contacts
 
-        /family = returns info on who's related to who and how
-        /family/{ID} = insted for "ID" write a name, e.g family/Stian
+        <br><strong>/contact/{ID}</strong>
+        <br>&emsp;&emsp;-- gets contacts matching first/last name or phone number to {ID}
 
+        <br><strong>/contact/{search}/{ID}</strong>
+        <br>&emsp;&emsp;-- gets contacts containing ID in field {search}. {search} can be 'first', 'last', 'phone', 'id' or any combination.
+        <br>&emsp;&emsp;&emsp;&emsp;Example: /contact/firstlast/John returns any contacts that has 'John' in either firstName or lastName fields.
+
+        <br>
+        <br><strong>/family</strong>
+        <br>&emsp;&emsp;-- gets all family relations
+
+        <br><strong>/family/{ID</strong>
+        <br>&emsp;&emsp;-- gets all family relations with the given ID
     </p>
-
-
-  <script>
-    function showContact() {
-        var x = document.getElementById("contactFrame");
-        x.style.display = "block";
-
-    }
-
-    function showFamily() {
-        var x = document.getElementById("familyFrame");
-        x.style.display = "block";
-
-    }
-
-    function showResponse() {
-        var x = document.getElementById("response");
-        x.style.display = "block";
-
-    }
-
-    function showResponse1() {
-        var x = document.getElementById("response1");
-        x.style.display = "block";
-
-    }
+    </div>
 
 
 
-  </script>
+    <h2 align="center">Try searching using our search boxes!</h2>
+
+
+    <div class="middle">
+    <h3 align="center">SEARCH</h3>
+    <p align="left">Need a hint? Search for first name, last name or phone</p>
+
+    <div class="middleLeft">
+
+        <h3 align="left">Search Contact</h3>
+        <form action='/contactSearch/' target="my-iframe" method='get'>
+            <input type='text' name='search'/>
+            <input onclick="showContact(), showResponse()" type='submit' value='Search'/>
+        </form>
+
+
+         <h4 id="response">Response</h4>
+        <iframe id="contactFrame" name="my-iframe" src="/familySearch"></iframe>
+    </div>
+
+    <div class="middleRight">
+        <h3 align="left">Search Family</h3>
+        <form action='/familySearch/' target="my-iframe2" method='get'>
+            <input type='text' name='search'/>
+            <input onclick="showFamily(), showResponse1()" type='submit' value="Find family"/>
+
+            <h4 id="response1">Response</h4>
+            <iframe id="familyFrame" name ="my-iframe2" scr="/familySearch"></iframe>
+        </form>
+    </div>
+
+
+
+
+    <script>
+        function showContact() {
+            var x = document.getElementById("contactFrame");
+            x.style.display = "block";
+        }
+
+        function showFamily() {
+            var x = document.getElementById("familyFrame");
+            x.style.display = "block";
+        }
+
+        function showResponse() {
+            var x = document.getElementById("response");
+            x.style.display = "block";
+        }
+
+        function showResponse1() {
+            var x = document.getElementById("response1");
+            x.style.display = "block";
+        }
+     </script>
 
 </div>
+
+    <div align="center">
+        <h1>---------- UPDATE ----------</h1>
+
+        <h2>POST JSON</h2>
+        <p id="explanation2">
+            <br><strong>/update/contact/</strong>
+            <br>&emsp;&emsp;-- POST Json with any number of contact fields, contactID required
+            <br>&emsp;&emsp;&emsp;updates the chosen fields to provided values for contact matching contactID
+
+            <br><strong>/update/family/</strong>
+            <br>&emsp;&emsp;-- POST Json with fields 'contactID', 'relativeID', 'relationshipID', updates the given relation to new ID
+        </p>
+    </div>
+
+
+    <div align="center">
+        <h1>---------- DELETE ----------</h1>
+
+        <h2>Edit the URL</h2>
+        <p id="explanation3">
+            <br><strong>/delete/contact/{ID}</strong>
+            <br>&emsp;&emsp;-- Deletes the contact with the given ID
+
+            <br><strong>/delete/family/{ID1}/{ID2}</strong>
+            <br>&emsp;&emsp;-- Deletes relations between given contact IDs
+        </p>
+    </div>
+
 
 </body>
 </html>
