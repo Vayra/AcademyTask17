@@ -16,8 +16,9 @@ import static no.noroff.task17.Task17Application.*;
 public class contactController {
     AtomicInteger id = new AtomicInteger(lastID);
 
-    @PostMapping("/contact")
+    @PostMapping("/contact/")
     public contact createContact(@RequestBody tempContact newCon){
+
         contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
                 newCon.getAddress(),newCon.getDob(),newCon.getPersonalPhone(),newCon.getWorkPhone(),newCon.getHomePhone(),
                 newCon.getWorkEmail(),newCon.getPersonalEmail());
@@ -29,6 +30,33 @@ public class contactController {
         System.out.println("Mail: " + newContact.getEmail().get("Work"));
         insertContact(newContact);
         readContact();
+
+        return newContact;
+
+    }
+
+    @PostMapping("/contactAdd/")
+    public contact createContactAdd(@RequestParam Map<String, String> body){
+        /*
+        for (String key: body.keySet()){
+            System.out.println(key + " : " + body.get(key));
+        }
+        */
+
+        contact newContact = new contact(""+id.incrementAndGet(),
+                body.get("firstName"), body.get("lastName"), body.get("address"), body.get("dob"),
+                body.get("personalPhone"), body.get("workPhone"),  body.get("homePhone"),
+                body.get("workEmail"),  body.get("personalEmail")
+        );
+
+        System.out.println("ID: " + newContact.getContactID());
+        System.out.println("Contact first name: " + newContact.getFirstName());
+        //System.out.println(newContact.toString());
+        System.out.println("Mail: " + newContact.getEmail().get("Personal"));
+        System.out.println("Mail: " + newContact.getEmail().get("Work"));
+        insertContact(newContact);
+        readContact();
+
         return newContact;
     }
 
@@ -211,6 +239,7 @@ public class contactController {
         {
             System.out.println(" --- CONTACT WAS NOT FOUND --- ");
         }
+
         return returnContact;
     }
 

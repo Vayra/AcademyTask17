@@ -28,7 +28,9 @@ public class contact {
         this.phone = phone;
     }
 
-    public contact(String contactID, String firstName, String lastName, String address, String dob, String personalPhone, String workPhone, String homePhone, String workEmail, String personalEmail){
+    public contact(String contactID, String firstName, String lastName, String address, String dob,
+                   String personalPhone, String workPhone, String homePhone,
+                   String workEmail, String personalEmail){
         Map<String, String> mail = new Hashtable<>();
         Map<String, String> phone = new Hashtable<>();
 
