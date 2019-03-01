@@ -61,6 +61,13 @@
 
            }
 
+        iframe {
+                    height: 200px;
+                    width: 400px;
+
+
+                }
+
 
 
 
@@ -81,86 +88,27 @@
     <a href="/addPerson">Add a contact? Click here</a>
 <div class="middle">
     <h2>Try it out!</h2>
-    <!--<input class="input-group-filed" id="request-url-input" name="q" type="text" placeholder="Search here" value="localhost:8080/contact/Stian">
-    <input type="button" value="Submit"/>-->
-    <form action='/contactSearch/' method='get'>
+
+    <form action='/contactSearch/' target="my-iframe" method='get'>
         <input type='text' name='search'/>
         <input type='submit' value='Search'/>
     </form>
     <br>
     <small>Need a hint? Search for first name, last name or phone</small> <br>
 
+     <h4>Response</h4>
+    <iframe name="my-iframe" src="/contactSearch"></iframe>
+
+    <form action='/family' target="my-iframe2" method='get'>
+        <iframe name ="my-iframe2" scr="/famliy"></iframe>
+        <input type='submit' value="Find family"/>
 
 
-    <h4>Response</h4>
-    <pre id="response-output" class="scrollable">
-
-    </pre>
-
-   <!-- <input type="text" id="myInput" onkeyup="myFunction" placeholder="Search here.." title="Type name, surname or phone">
-
-    <table id="myTable">
-        <tr class="header">
-            <th style="width:20%;">Name</th>
-            <th style="width:20%;">Surname</th>
-            <th style="width:20%;">Phone</th>
-            <th style="width:20%;">Family</th>
-            <th style="width:20%;">E-mail</th>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Berglunds snabbkop</td>
-            <td>Sweden</td>
-        </tr>
-        <tr>
-            <td>Island Trading</td>
-            <td>UK</td>
-        </tr>
-        <tr>
-            <td>Koniglich Essen</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Laughing Bacchus Winecellars</td>
-            <td>Canada</td>
-        </tr>
-        <tr>
-            <td>Magazzini Alimentari Riuniti</td>
-            <td>Italy</td>
-        </tr>
-        <tr>
-            <td>North/South</td>
-            <td>UK</td>
-        </tr>
-        <tr>
-            <td>Paris specialites</td>
-            <td>France</td>
-        </tr>
-    </table>
 
   <script>
-            function myFunction() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                } else {
-                tr[i].style.display = "none";
-              }
-             }
-            }
-           }
-</script> -->
+
+
+</script>
 
 </div>
 
