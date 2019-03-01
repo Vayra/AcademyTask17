@@ -1,6 +1,6 @@
 package no.noroff.task17.models;
 
-public class tempObj {
+public class tempContact {
     private String firstName;
     private String lastName;
     private String address;
@@ -11,7 +11,7 @@ public class tempObj {
     private String workEmail;
     private String personalEmail;
 
-    public tempObj() {
+    public tempContact() {
     }
 
     public String getFirstName() {
