@@ -21,55 +21,13 @@ public class Task17Application {
 
 	public static void main(String[] args) {
 		readContact();
-		SpringApplication.run(Task17Application.class, args);
-		/*
-		deleteFromTable("3", "Contact");
-		deleteFromTable("3", "Email");
-		deleteFromTable("3", "Phone");
-		deleteFromTable("4", "Contact");
-		deleteFromTable("4", "Email");
-		deleteFromTable("4", "Phone");
-		deleteContact("3");
-		deleteContact("4");
-		insertContact("3", "Craig", "Marais", "South Africa", "1/1/1970",
-				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");
-		insertContact("4", "Ola", "Nordmann", "South Africa", "1/1/1970",
-				"craig@marais.com", "craig@noroff.no", "1234567", " ", "98765");*/
-
-		//updateTable("4", "Phone", "homePhone", "22334455");
-
-		//insertFamily("3", "4", "3");
-		//insertFamily("4","3", "3");
-		//insertFamily("2","1","2");
-
-		readContact();
 		readFamily();
-
-		//showRelatedContacts("1");
-		//showRelatedContacts("3");
-		//deleteFromTable("5", "Family");
-		//deleteFromTable("6", "Family");
+		SpringApplication.run(Task17Application.class, args);
 
 
 		for (int id=1; id<= lastID; id++){
 			showRelatedContacts(""+id);
 		}
-
-		// Test readContacts()
-
-
-		/*
-
-		for (contact con :contacts){
-			System.out.println("ID: " + con.getContactID());
-			System.out.println("Name: " + con.getFirstName() + " " + con.getLastName());
-			Map<String, String> phone = con.getPhone();
-			System.out.println("Phone: " + phone.get("Personal"));
-			System.out.println("Address: " + con.getAddress());
-		}
-		*/
-
-
 
 	}
 
