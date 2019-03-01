@@ -54,6 +54,7 @@ public class Task17Application {
 		for (int id=1; id<= lastID; id++){
 			showRelatedContacts(""+id);
 		}
+
 		// Test readContacts()
 
 
@@ -218,6 +219,32 @@ public class Task17Application {
 	}
 
 	/**
+	 *  Special handling for Family table as WHERE condition needs to be different
+	 * @param ID contactID
+	 * @param relID contactID of relative
+	 * @param value relationshipID
+	 */
+	public static boolean updateFamilyTable(String ID, String relID, String value){
+		String sql = "UPDATE Family SET relationshipID = '" + value+
+				     "' WHERE contactID = '"+ID+"' AND relativeID = '" + relID + "'";
+
+		try {
+			openConn();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			pstmt.execute();
+
+			closeConn();
+			return true;
+
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return false;
+	}
+
+
+	/**
 	 * Reads family table to families
 	 */
 	public static void readFamily(){
@@ -317,6 +344,19 @@ public class Task17Application {
 	public static void deleteFromTable(String ID, String tableName){
 		String sql = "DELETE FROM " + tableName + " WHERE contactID = " + ID;
 		if(execute(sql)) System.out.println("Deleted ID=" + ID + " from " + tableName);
+	}
+
+	/**
+	 * Special handling for family deletions due to different WHERE condition
+	 * @param contactID contactID
+	 * @param relativeID relativeID
+	 * @return
+	 */
+	public static boolean deleteFamilyFromTable(String contactID, String relativeID){
+		String sql = "DELETE FROM FAMILY WHERE contactID = '" + contactID + "' AND relativeID = '" + relativeID + "'";
+		String sql2 = "DELETE FROM FAMILY WHERE contactID = '" + relativeID + "' AND relativeID = '" + contactID + "'";
+		if(execute(sql) && execute(sql2)) return true;
+		return false;
 	}
 
 	/**
@@ -521,5 +561,37 @@ public class Task17Application {
 		return success;
 	}
 
+	public static contact getContact(String ID){
+		for (contact c:contacts){
+			if (c.getContactID().equals(ID)) return c;
+		}
+		return null;
+	}
 
+	public static family getFamily(String contactID, String relativeID){
+		for (family fam:families){
+			if (fam.getContactID().equals(contactID) && fam.getRelativeID().equals(relativeID)) return fam;
+		}
+		return null;
+	}
+
+	public static String getReciprocalRel(String ID){
+		String reciprocRelation;
+		switch(ID) {
+			case "1":
+				reciprocRelation = "2";
+				break;
+			case "2":
+				reciprocRelation = "1";
+				break;
+			case "3":
+				reciprocRelation = "3";
+				break;
+			default:
+				reciprocRelation = ID;
+		}
+		System.out.println("Reciprocal ID: " +reciprocRelation);
+		System.out.println("Relationship ID: " + ID);
+		return reciprocRelation;
+	}
 }

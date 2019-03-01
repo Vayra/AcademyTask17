@@ -16,12 +16,9 @@ import static no.noroff.task17.Task17Application.*;
 public class contactController {
     AtomicInteger id = new AtomicInteger(lastID);
 
-    @GetMapping("/delete/contact")
+    @GetMapping("/delete/contact/{contactID}")
     public String deleteContact(@PathVariable String contactID){
-        contact con = null;
-        for (contact c:contacts){
-            if (c.getContactID().equals(contactID)) con = c;
-        }
+        contact con = getContact(contactID);
         if (con != null) {
             deleteContact(contactID);
             return "Contact deleted";
@@ -30,12 +27,23 @@ public class contactController {
     }
 
     @PostMapping("/update/contact")
-    public contact updateContact(@RequestBody tempContact updateBody){
-        contact newCon = null;
+    public contact updateContact(@RequestBody Map<String, String> updateBody){
 
-        for (contact c: contacts){
-            if (c.getContactID().equals(updateBody.getContactID())) newCon = c;
+        String conID = updateBody.get("contactID");
+
+        for (String key:updateBody.keySet()){
+            if (key.toLowerCase().contains("phone")){
+                updateTable(conID, "Phone", key, updateBody.get(key));
+            }
+            else if (key.toLowerCase().contains("email")){
+                updateTable(conID, "Email", key, updateBody.get(key));
+            }
+            else {
+                updateTable(conID, "Contact", key, updateBody.get(key));
+            }
         }
+        readContact();
+        contact newCon = getContact(conID);
 
         return newCon;
     }
@@ -53,6 +61,32 @@ public class contactController {
         System.out.println("Mail: " + newContact.getEmail().get("Work"));
         insertContact(newContact);
         readContact();
+
+        return newContact;
+    }
+
+    @PostMapping("/contactAdd/")
+    public contact createContactAdd(@RequestParam Map<String, String> body){
+        /*
+        for (String key: body.keySet()){
+            System.out.println(key + " : " + body.get(key));
+        }
+        */
+
+        contact newContact = new contact(""+id.incrementAndGet(),
+                body.get("firstName"), body.get("lastName"), body.get("address"), body.get("dob"),
+                body.get("personalPhone"), body.get("workPhone"),  body.get("homePhone"),
+                body.get("workEmail"),  body.get("personalEmail")
+        );
+
+        System.out.println("ID: " + newContact.getContactID());
+        System.out.println("Contact first name: " + newContact.getFirstName());
+        //System.out.println(newContact.toString());
+        System.out.println("Mail: " + newContact.getEmail().get("Personal"));
+        System.out.println("Mail: " + newContact.getEmail().get("Work"));
+        insertContact(newContact);
+        readContact();
+
         return newContact;
     }
 
