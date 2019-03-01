@@ -26,6 +26,7 @@
                     border: 10px solid white;
                     padding: 10px;
                     color: white;
+
                }
 
 
@@ -68,7 +69,23 @@
 
                 }
 
+        #response {
+               display: none;
+           }
 
+        #response1 {
+                    display: none;
+
+                  }
+
+        #explanation {
+                        color: white;
+                        text-align: left;
+                        font-size: 16px;
+                        padding-left: 700px;
+                        padding-bottom: 50px;
+
+                     }
 
 
 
@@ -91,22 +108,35 @@
     <h3>Search Contact</h3>
     <form action='/contactSearch/' target="my-iframe" method='get'>
         <input type='text' name='search'/>
-        <input onclick="showContact()" type='submit' value='Search'/>
+        <input onclick="showContact(), showResponse()" type='submit' value='Search'/>
     </form>
     <br>
     <small>Need a hint? Search for first name, last name or phone</small> <br>
 
-     <h4>Response</h4>
+     <h4 id="response">Response</h4>
     <iframe id="contactFrame" name="my-iframe" src="/familySearch"></iframe>
 
 
     <h3>Search Family</h3>
     <form action='/familySearch/' target="my-iframe2" method='get'>
         <input type='text' name='search'/>
-        <input onclick="showFamily()" type='submit' value="Find family"/>
+        <input onclick="showFamily(), showResponse1()" type='submit' value="Find family"/>
+
+        <h4 id="response1">Response</h4>
         <iframe id="familyFrame" name ="my-iframe2" scr="/familySearch"></iframe>
 
     </form>
+
+    <p id="explanation">
+        /contact = returns all the contacts
+        /contact/{search}/{ID} = instead of "search" you can put "first, "last", "phone". A name or number insted of "ID".
+        it will return the person you search for.
+        /contact/{ID} = instead of "ID" write a name, e.g contact/Helene. <br> <br>
+
+        /family = returns info on who's related to who and how
+        /family/{ID} = insted for "ID" write a name, e.g family/Stian
+
+    </p>
 
 
   <script>
@@ -118,6 +148,18 @@
 
     function showFamily() {
         var x = document.getElementById("familyFrame");
+        x.style.display = "block";
+
+    }
+
+    function showResponse() {
+        var x = document.getElementById("response");
+        x.style.display = "block";
+
+    }
+
+    function showResponse1() {
+        var x = document.getElementById("response1");
         x.style.display = "block";
 
     }
