@@ -1,6 +1,9 @@
 package no.noroff.task17.models;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class contact {
@@ -12,6 +15,9 @@ public class contact {
     private Map<String, String> email;
     private Map<String, String> phone;
 
+    public contact() {}
+
+
     public contact(String contactID, String firstName, String lastName, String address, String dob, Map<String, String> email, Map<String, String> phone) {
         this.contactID = contactID;
         this.firstName = firstName;
@@ -22,18 +28,32 @@ public class contact {
         this.phone = phone;
     }
 
-    public contact( String firstName, String lastName, String address, String dob, String Pmobile, String Pwork, String Phome, String EmailW, String EmailH){
-        Map<String, String> mail = new HashMap<>();
-        Map<String, String> phone = new HashMap<>();
+    public contact(String contactID, String firstName, String lastName, String address, String dob, String personalPhone, String workPhone, String homePhone, String workEmail, String personalEmail){
+        Map<String, String> mail = new Hashtable<>();
+        Map<String, String> phone = new Hashtable<>();
 
-        phone.put("Personal", Pmobile);
-        phone.put("Home", Phome);
-        phone.put("Work", Pwork);
+        System.out.println("Creating Contact from only string values");
+        System.out.println(firstName);
+        System.out.println(lastName);
+        System.out.println(address);
+        System.out.println(dob);
+        System.out.println(personalPhone);
+        System.out.println(homePhone);
+        System.out.println(workPhone);
+        System.out.println(personalEmail);
+        System.out.println(workEmail);
 
-        mail.put("Personal", EmailH);
-        mail.put("Work", EmailW);
 
-        this.contactID = "0";
+        phone.put("Personal", personalPhone);
+        phone.put("Home", homePhone);
+        phone.put("Work", workPhone);
+
+        System.out.println("Email: " + personalEmail);
+        System.out.println("Email: " + workEmail);
+        mail.put("Personal", personalEmail);
+        mail.put("Work", workEmail);
+
+        this.contactID = contactID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
