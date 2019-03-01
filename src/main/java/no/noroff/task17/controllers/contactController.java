@@ -16,9 +16,33 @@ import static no.noroff.task17.Task17Application.*;
 public class contactController {
     AtomicInteger id = new AtomicInteger(lastID);
 
+    @GetMapping("/delete/contact")
+    public String deleteContact(@PathVariable String contactID){
+        contact con = null;
+        for (contact c:contacts){
+            if (c.getContactID().equals(contactID)) con = c;
+        }
+        if (con != null) {
+            deleteContact(contactID);
+            return "Contact deleted";
+        }
+        return "Contact not found";
+    }
+
+    @PostMapping("/update/contact")
+    public contact updateContact(@RequestBody tempContact updateBody){
+        contact newCon = null;
+
+        for (contact c: contacts){
+            if (c.getContactID().equals(updateBody.getContactID())) newCon = c;
+        }
+
+        return newCon;
+    }
+
     @PostMapping("/contact")
     public contact createContact(@RequestBody tempContact newCon){
-        contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
+         contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
                 newCon.getAddress(),newCon.getDob(),newCon.getPersonalPhone(),newCon.getWorkPhone(),newCon.getHomePhone(),
                 newCon.getWorkEmail(),newCon.getPersonalEmail());
         newContact.setContactID(""+id.incrementAndGet());

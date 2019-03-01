@@ -1,6 +1,7 @@
 package no.noroff.task17.models;
 
 public class tempContact {
+    private String contactID;
     private String firstName;
     private String lastName;
     private String address;
@@ -12,6 +13,14 @@ public class tempContact {
     private String personalEmail;
 
     public tempContact() {
+    }
+
+    public String getContactID() {
+        return contactID;
+    }
+
+    public void setContactID(String contactID) {
+        this.contactID = contactID;
     }
 
     public String getFirstName() {
