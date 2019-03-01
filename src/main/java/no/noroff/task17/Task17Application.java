@@ -20,6 +20,7 @@ public class Task17Application {
 	public static int lastID = 0;
 
 	public static void main(String[] args) {
+		readContact();
 		SpringApplication.run(Task17Application.class, args);
 		/*
 		deleteFromTable("3", "Contact");
