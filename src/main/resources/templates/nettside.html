@@ -64,7 +64,7 @@
         iframe {
                     height: 200px;
                     width: 400px;
-
+                    display: none;
 
                 }
 
@@ -91,24 +91,36 @@
 
     <form action='/contactSearch/' target="my-iframe" method='get'>
         <input type='text' name='search'/>
-        <input type='submit' value='Search'/>
+        <input onclick="showContact()" type='submit' value='Search'/>
     </form>
     <br>
     <small>Need a hint? Search for first name, last name or phone</small> <br>
 
      <h4>Response</h4>
-    <iframe name="my-iframe" src="/contactSearch"></iframe>
+    <iframe id="contactFrame" name="my-iframe" src="/contactSearch"></iframe>
 
     <form action='/family' target="my-iframe2" method='get'>
-        <iframe name ="my-iframe2" scr="/famliy"></iframe>
-        <input type='submit' value="Find family"/>
-
+        <iframe id="familyFrame" name ="my-iframe2" scr="/famliy"></iframe>
+        <input onclick="showFamily()" type='submit' value="Find family"/>
+    </form>
 
 
   <script>
+    function showContact() {
+        var x = document.getElementById("contactFrame");
+        x.style.display = "block";
+
+    }
+
+    function showFamily() {
+        var x = document.getElementById("familyFrame");
+        x.style.display = "block";
+
+    }
 
 
-</script>
+
+  </script>
 
 </div>
 
