@@ -21,7 +21,7 @@ public class Task17Application {
 
 	public static void main(String[] args) {
 		readContact();
-		SpringApplication.run(Task17Application.class, args);
+		//SpringApplication.run(Task17Application.class, args);
 		/*
 		deleteFromTable("3", "Contact");
 		deleteFromTable("3", "Email");
@@ -45,9 +45,14 @@ public class Task17Application {
 		readContact();
 		readFamily();
 
-		showRelatedContacts("1");
-		showRelatedContacts("3");
+		//showRelatedContacts("1");
+		//showRelatedContacts("3");
+		//deleteFromTable("5", "Family");
 
+
+		for (int id=1; id<= lastID; id++){
+			showRelatedContacts(""+id);
+		}
 		// Test readContacts()
 
 
@@ -221,6 +226,8 @@ public class Task17Application {
 	    String contactID;
 	    String relationshipID;
 
+	    String url = "http://localhost:8080/contact/id/";
+
 	    try {
 	        openConn();
 	        Statement stmt = conn.createStatement();
@@ -228,9 +235,9 @@ public class Task17Application {
 	        ArrayList<family> updatedFamilies = new ArrayList<>();
 
 	        while(rs.next()){
-	            contactID = rs.getString("contactID");
-	            relationshipID = rs.getString("relationshipID");
-	            relativeID = rs.getString("relativeID");
+	            contactID = url + rs.getString("contactID");
+	            relationshipID = getKind(rs.getString("relationshipID"));
+	            relativeID =  url + rs.getString("relativeID");
 	            updatedFamilies.add(new family(contactID, relativeID, relationshipID));
             }
 	        families = updatedFamilies;
@@ -349,6 +356,10 @@ public class Task17Application {
 		}
 	}
 
+	public static void insertFamily(family fam){
+		insertFamily(fam.getContactID(),fam.getRelativeID(), fam.getRelationshipID());
+	}
+
 	/**
 	 * Insert entry into email table
 	 * @param ID ID of contact to associate email with
@@ -433,10 +444,29 @@ public class Task17Application {
         }
     }
 
-    /**
-     * Show relatives to contactID
-     * @param id contactID
-     */
+
+	/**
+	 * find relationship ID by type of relation
+	 * @param kind type of relation
+	 * @return relationshipID
+	 */
+    private  static String getRelationshipID(String kind){
+		switch (kind) {
+			case "Parent":
+				return "1";
+			case "Child":
+				return "2";
+			case "Sibling":
+				return "3";
+			default:
+				return "Unknown relation";
+		}
+	}
+
+	/**
+	 * Show relatives to contactID
+	 * @param id contactID
+	 */
 	private static void showRelatedContacts (String id) {
 
         String sqlFam = "SELECT * FROM Family WHERE contactID = '" + id + "'";
@@ -450,6 +480,7 @@ public class Task17Application {
 
 			    String contactID = rs.getString("contactID");
                 String relativeID = rs.getString("relativeID");
+                String relationshipID = rs.getString("relationshipID");
 
                 contact contact = findContact(contactID);
                 contact relative = findContact(relativeID);
@@ -460,8 +491,8 @@ public class Task17Application {
                 String relativeFirstName = relative.getFirstName();
                 String relativeLastName = relative.getLastName();
 
-                String kind = getKind(contactID);
-        				System.out.println(personFirstName +" "+ personLastName + " is "+ kind +
+                String kind = getKind(relationshipID);
+                System.out.println(personFirstName +" "+ personLastName + " is "+ kind +
                         " to " + relativeFirstName + " " + relativeLastName +".");
 			}
 		} catch (SQLException e){

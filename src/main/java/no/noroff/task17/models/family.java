@@ -5,6 +5,9 @@ public class family {
     private String relationshipID;
     private String contactID;
 
+    public family() {
+    }
+
     public family(String contactID, String relativeID, String relationshipID) {
         this.relativeID = relativeID;
         this.relationshipID = relationshipID;

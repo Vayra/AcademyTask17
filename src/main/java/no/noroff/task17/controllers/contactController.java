@@ -2,7 +2,7 @@ package no.noroff.task17.controllers;
 
 import no.noroff.task17.Task17Application;
 import no.noroff.task17.models.contact;
-import no.noroff.task17.models.tempObj;
+import no.noroff.task17.models.tempContact;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class contactController {
     AtomicInteger id = new AtomicInteger(lastID);
 
     @PostMapping("/contact")
-    public contact createContact(@RequestBody tempObj newCon){
+    public contact createContact(@RequestBody tempContact newCon){
         contact newContact = new contact("0", newCon.getFirstName(),newCon.getLastName(),
                 newCon.getAddress(),newCon.getDob(),newCon.getPersonalPhone(),newCon.getWorkPhone(),newCon.getHomePhone(),
                 newCon.getWorkEmail(),newCon.getPersonalEmail());
